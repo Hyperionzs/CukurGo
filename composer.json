@@ -1,0 +1,17 @@
+{
+    "name": "admin/cukur-go",
+    "autoload": {
+        "psr-4": {
+            "Admin\\CukurGo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hyperionzs",
+            "email": "hyperions004@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
