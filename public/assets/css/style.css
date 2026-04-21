@@ -56,6 +56,11 @@ body {
     outline: none;
 }
 
+.form-control::placeholder {
+    color: #c9c6c6 !important;
+    opacity: 1;
+}
+
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
