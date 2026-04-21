@@ -1,15 +1,19 @@
 <?php 
 
 require_once __DIR__ . '/../vendor/autoload.php';
-
 require_once __DIR__ . '/../app/Controller/BookingController.php';
 require_once __DIR__ . '/../app/Config/Database.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $booking = new BookingController();
-    if ($booking->createBooking($_POST)) {
+    $result = $booking->createBooking($_POST);
+    if ($result == "SUCCESS") {
         header("Location: success.php");
         exit();
+    } elseif ($result == "CLASH") {
+        $error_message = "Maaf, slot waktu sudah dibooking orang lain. Silakan pilih jam atau tanggal lain.";
+    } else {
+        $error_message = "Terjadi kesalahan sistem. Silakan coba lagi.";
     }
 }
 
@@ -17,6 +21,12 @@ $db = (new Database())->getConnection();
 $stmt = $db->query("SELECT * FROM services");
 $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
+<?php if ($error_message): ?>
+    <div class="alert alert-danger border-0 shadow-sm mb-4" style="background-color: #ff4d4d; color: white;">
+        <?= $error_message ?>
+    </div>
+<?php endif; ?>
 
 <!DOCTYPE html>
 <html lang="id">

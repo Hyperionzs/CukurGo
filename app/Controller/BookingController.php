@@ -11,6 +11,16 @@ class BookingController {
     }
 
     public function createBooking($data) {
+        $checkQuery = "SELECT id FROM reservations WHERE reservation_date = :date AND reservation_time = :time AND status != 'cancelled' LIMIT 1";
+        $checkStmt = $this->db->prepare($checkQuery);
+        $checkStmt->execute([
+            ':date' => $data['date'],
+            ':time' => $data['time']
+        ]);
+        if ($checkStmt->rowCount() > 0) {
+            return "CLASH";
+        }
+        
         $query = "INSERT INTO reservations (customer_name, phone_number, service_id, reservation_date, reservation_time) 
                   VALUES (:name, :phone, :service, :date, :time)";
         
@@ -19,12 +29,17 @@ class BookingController {
         // Sanitize data
         $name = htmlspecialchars(strip_tags($data['name']));
         
-        return $stmt->execute([
+        try {
+            $stmt->execute([
             ':name' => $name,
             ':phone' => $data['phone'],
             ':service' => $data['service_id'],
             ':date' => $data['date'],
             ':time' => $data['time']
         ]);
+        return "SUCCESS";
+        } catch (PDOException $e) {
+            return "ERROR: " . $e->getMessage();
+        }
     }
 }
