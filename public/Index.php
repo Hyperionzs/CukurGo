@@ -3,17 +3,18 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../app/Controller/BookingController.php';
 require_once __DIR__ . '/../app/Config/Database.php';
+require_once __DIR__ . '/../app/Helpers/Csrf.php';
+
+$error_message = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $booking = new BookingController();
     $result = $booking->createBooking($_POST);
-    if ($result == "SUCCESS") {
+    if (($result['ok'] ?? false) === true) {
         header("Location: success.php");
         exit();
-    } elseif ($result == "CLASH") {
-        $error_message = "Maaf, slot waktu sudah dibooking orang lain. Silakan pilih jam atau tanggal lain.";
     } else {
-        $error_message = "Terjadi kesalahan sistem. Silakan coba lagi.";
+        $error_message = $result['message'] ?? "Terjadi kesalahan sistem. Silakan coba lagi.";
     }
 }
 
@@ -48,6 +49,7 @@ $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class="card-body p-4">
                         <form action="" method="POST">
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Csrf::token(), ENT_QUOTES, 'UTF-8') ?>">
                             <div class="mb-3">
                                 <label class="form-label">Nama Lengkap</label>
                                 <input type="text" name="name" class="form-control" placeholder="Masukkan nama Anda" required>
