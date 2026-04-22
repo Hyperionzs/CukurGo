@@ -39,7 +39,7 @@ class BookingController {
         ]);
         return "SUCCESS";
         } catch (PDOException $e) {
-            return "ERROR: " . $e->getMessage();
+            return "ERROR: Gagal membuat booking";
         }
     }
 }
