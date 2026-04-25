@@ -80,11 +80,11 @@ if (!function_exists('layoutRenderNavbar')) {
         echo '<ul class="navbar-nav mx-auto mb-3 mb-lg-0 mt-3 mt-lg-0 gap-lg-4 text-center fw-medium">';
         echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php">Home</a></li>';
         echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php#features-section">Keunggulan</a></li>';
-        echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php#booking-section">Layanan</a></li>';
+        echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php#services-section">Layanan</a></li>';
         echo '<li class="nav-item"><a class="nav-link text-light" href="Privacy.php">Privasi</a></li>';
         echo '</ul>';
         echo '<div class="d-grid d-lg-block">';
-        echo '<a class="btn btn-gold text-dark fw-bold rounded-pill px-4 shadow" href="Index.php#booking-section">Book Now</a>';
+        echo '<button type="button" class="btn btn-gold text-dark fw-bold rounded-pill px-4 shadow" data-bs-toggle="modal" data-bs-target="#bookingModal">Book Now</button>';
         echo '</div>';
         echo '</div>';
         echo '</div>';
@@ -102,4 +102,3 @@ if (!function_exists('layoutRenderFooter')) {
         echo '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>';
     }
 }
-
