@@ -119,21 +119,48 @@ layoutRenderHead([
             </div>
             
             <div class="row g-4 justify-content-center">
-                <?php foreach($services as $s): ?>
+                <?php foreach($services as $s): 
+                    // Logika mapping gambar & badge sederhana
+                    $imagePath = 'assets/img/service-haircut.png';
+                    $isPopular = false;
+                    $duration = '30 - 45 Menit';
+                    
+                    if (stripos($s['name'], 'Reguler') !== false) { $isPopular = true; }
+                    if (stripos($s['name'], 'Cukur Jenggot') !== false) { $imagePath = 'assets/img/service-shaving.png'; $duration = '20 Menit'; }
+                    elseif (stripos($s['name'], 'Spa') !== false || stripos($s['name'], 'Creambath') !== false) { $imagePath = 'assets/img/service-treatment.png'; $duration = '60 Menit'; }
+                    elseif (stripos($s['name'], 'Pewarnaan') !== false || stripos($s['name'], 'Smoothing') !== false) { $imagePath = 'assets/img/service-treatment.png'; $duration = '90 - 120 Menit'; }
+                ?>
                 <div class="col-md-6 col-lg-4 animate-slide-up-delay">
-                    <div class="service-card p-4 h-100 d-flex flex-column">
-                        <div class="service-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="var(--primary-accent)" viewBox="0 0 16 16">
-                                <path d="M4 .5a.5.5 0 0 0-1 0V2H2a2 2 0 0 0-2 2v1h1V4a1 1 0 0 1 1-1h1V.5zM1 6H0v1h1V6zm0 2H0v1h1V8zm0 2H0v1h1v-1zm12-9.5V2h1a1 1 0 0 1 1 1h1a2 2 0 0 0-2-2h-1V.5zM15 4h1v1h-1V4zm0 2h1v1h-1V6zm0 2h1v1h-1V8zm0 2h1v1h-1v-1zM1.5 15h1a1 1 0 0 1-1-1v-1H0a2 2 0 0 0 2 2h1v-1H1.5zM3 15h1v1H3v-1zm2 0h1v1H5v-1zm2 0h1v1H7v-1zm2 0h1v1H9v-1zm2 0h1v1h-1v-1zm2 0h1a2 2 0 0 0 2-2h-1a1 1 0 0 1-1 1v1zM4 4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4z"/>
-                            </svg>
+                    <div class="service-card h-100 d-flex flex-column">
+                        <div class="service-img-container">
+                            <?php if($isPopular): ?>
+                                <span class="service-badge-popular">Terpopuler</span>
+                            <?php endif; ?>
+                            <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($s['name']) ?>" class="service-card-img">
                         </div>
-                        <h4 class="fw-bold mb-2"><?= htmlspecialchars($s['name']) ?></h4>
-                        <p class="text-light opacity-75 small mb-4 flex-grow-1">
-                            <?= htmlspecialchars($s['description'] ?? 'Layanan perawatan rambut premium untuk menunjang penampilan maksimal Anda.') ?>
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center mt-auto">
-                            <div class="service-price">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></div>
-                            <button type="button" class="btn btn-sm btn-gold px-3 rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#bookingModal" onclick="document.getElementById('serviceInput').value = '<?= $s['id'] ?>'">Pilih</button>
+                        <div class="p-4 flex-grow-1 d-flex flex-column">
+                            <div class="service-icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="var(--primary-accent)" viewBox="0 0 16 16">
+                                    <path d="M4 .5a.5.5 0 0 0-1 0V2H2a2 2 0 0 0-2 2v1h1V4a1 1 0 0 1 1-1h1V.5zM1 6H0v1h1V6zm0 2H0v1h1V8zm0 2H0v1h1v-1zm12-9.5V2h1a1 1 0 0 1 1 1h1a2 2 0 0 0-2-2h-1V.5zM15 4h1v1h-1V4zm0 2h1v1h-1V6zm0 2h1v1h-1V8zm0 2h1v1h-1v-1zM1.5 15h1a1 1 0 0 1-1-1v-1H0a2 2 0 0 0 2 2h1v-1H1.5zM3 15h1v1H3v-1zm2 0h1v1H5v-1zm2 0h1v1H7v-1zm2 0h1v1H9v-1zm2 0h1v1h-1v-1zm2 0h1a2 2 0 0 0 2-2h-1a1 1 0 0 1-1 1v1zM4 4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4z"/>
+                                </svg>
+                            </div>
+                            <h4 class="fw-bold mb-2"><?= htmlspecialchars($s['name']) ?></h4>
+                            <div class="service-info-footer">
+                                <span class="d-flex align-items-center gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                                    </svg>
+                                    <?= $duration ?>
+                                </span>
+                            </div>
+                            <p class="text-light opacity-75 small mb-4 flex-grow-1">
+                                <?= htmlspecialchars($s['description'] ?? 'Layanan perawatan premium untuk menunjang penampilan maksimal Anda.') ?>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div class="service-price">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></div>
+                                <button type="button" class="btn btn-sm btn-gold px-3 rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#bookingModal" onclick="document.getElementById('serviceInput').value = '<?= $s['id'] ?>'">Booking</button>
+                            </div>
                         </div>
                     </div>
                 </div>
