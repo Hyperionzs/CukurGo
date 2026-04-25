@@ -1,9 +1,9 @@
 {
     "name": "admin/cukur-go",
     "autoload": {
-        "psr-4": {
-            "Admin\\CukurGo\\": "src/"
-        }
+        "classmap": [
+            "app/"
+        ]
     },
     "authors": [
         {

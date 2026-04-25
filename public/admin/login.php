@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../../app/Config/Database.php';
 require_once __DIR__ . '/../../app/Helpers/AdminAuth.php';
 require_once __DIR__ . '/../../app/Helpers/Csrf.php';
+require_once __DIR__ . '/../../app/Helpers/Layout.php';
 
 new Database();
 
@@ -31,17 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $csrf = Csrf::token();
+
+layoutRenderHead([
+    'title' => 'Login Admin - CukurGo',
+    'description' => 'Masuk ke panel admin CukurGo untuk memantau reservasi.',
+    'asset_prefix' => '../',
+]);
 ?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - CukurGo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
-</head>
 <body class="bg-light">
+    <?php layoutRenderNavbar('admin'); ?>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-4">
@@ -101,5 +100,6 @@ $csrf = Csrf::token();
             });
         })();
     </script>
+    <?php layoutRenderFooter('CukurGo Admin Panel.'); ?>
 </body>
 </html>

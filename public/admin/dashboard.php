@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../../app/Config/Database.php';
 require_once __DIR__ . '/../../app/Helpers/Utils.php';
 require_once __DIR__ . '/../../app/Helpers/AdminAuth.php';
+require_once __DIR__ . '/../../app/Helpers/Layout.php';
 
 new Database();
 
@@ -20,30 +21,15 @@ $query = 'SELECT r.*, s.name as service_name, s.price
 $stmt = $db->prepare($query);
 $stmt->execute();
 $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - CukurGo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-<body>
 
-    <nav class="navbar navbar-dark bg-dark border-bottom border-secondary mb-4">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-gold" href="dashboard.php">CukurGo ADMIN</a>
-            <div class="d-flex align-items-center gap-3">
-                <span class="text-muted small d-none d-sm-inline">Panel Monitoring Antrean</span>
-                <a class="btn btn-sm btn-outline-light" href="logout.php">Keluar (Full)</a>
-            </div>
-        </div>
-    </nav>
+layoutRenderHead([
+    'title' => 'Admin Dashboard - CukurGo',
+    'description' => 'Pantau daftar reservasi pelanggan CukurGo secara real-time.',
+    'asset_prefix' => '../',
+]);
+?>
+<body>
+    <?php layoutRenderNavbar('admin'); ?>
 
     <div class="container-fluid px-4">
         <div class="row">
@@ -103,6 +89,6 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </div>
-
+    <?php layoutRenderFooter('CukurGo Admin Dashboard.'); ?>
 </body>
 </html>
