@@ -54,56 +54,53 @@ layoutRenderHead([
     </header>
 
     <!-- Features Section -->
-    <section id="features-section" class="py-5 bg-black position-relative">
-        <div class="container py-5">
-            <div class="text-center mb-5 section-title">
+    <section id="features-section" class="py-5 bg-black position-relative overflow-hidden">
+        <!-- Decorative Background -->
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%); pointer-events: none;"></div>
+        
+        <div class="container py-5 position-relative z-1">
+            <div class="text-center mb-5 section-title animate-slide-up">
                 <h6 class="text-gold fw-bold text-uppercase tracking-wider" style="letter-spacing: 2px;">Keunggulan Kami</h6>
                 <h2 class="display-5 fw-bold mb-3">Kenapa Memilih CukurGo?</h2>
                 <div class="divider mx-auto mb-4"></div>
+                <p class="lead text-light opacity-75 mx-auto mb-0" style="max-width: 650px; font-weight: 400; line-height: 1.7;">Kami menggabungkan seni cukur rambut klasik dengan kepraktisan teknologi modern untuk menciptakan pengalaman <span class="text-gold fw-semibold fst-italic">grooming</span> tak terlupakan untuk Anda.</p>
             </div>
             
             <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="feature-card p-4 rounded-4 shadow h-100 text-center">
-                        <div class="icon-box mx-auto mb-4 bg-gold-subtle rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                <div class="col-md-4 animate-slide-up-delay">
+                    <div class="feature-card p-5 rounded-4 shadow-lg h-100 text-center position-relative overflow-hidden" style="background: linear-gradient(145deg, #161616 0%, #1e1e1e 100%);">
+                        <div class="feature-glow position-absolute top-0 start-50 translate-middle-x" style="width: 120px; height: 120px; background: rgba(212,175,55,0.15); filter: blur(40px);"></div>
+                        <div class="icon-box mx-auto mb-4 bg-black rounded-circle d-flex align-items-center justify-content-center border border-gold shadow" style="width: 80px; height: 80px; transition: all 0.4s ease;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="var(--primary-accent)" viewBox="0 0 16 16">
                                 <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
                                 <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
                             </svg>
                         </div>
-                        <h4 class="fw-bold mb-3">Tanpa Antre</h4>
-                        <p class="text-muted">Pilih jam kedatangan. Datang, duduk, dan langsung dilayani tanpa perlu menunggu di ruang tunggu.</p>
+                        <h4 class="fw-bold mb-3 text-white" style="letter-spacing: 0.5px;">Tanpa Antre</h4>
+                        <p class="text-light opacity-75 fw-light mb-0" style="font-size: 1.05rem; line-height: 1.7;">Pilih jam kedatangan Anda. Datang, duduk, dan langsung dilayani tanpa membuang waktu berharga di ruang tunggu.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="feature-card p-4 rounded-4 shadow h-100 text-center">
-                        <div class="icon-box mx-auto mb-4 bg-gold-subtle rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                <div class="col-md-4 animate-slide-up-delay-2">
+                    <div class="feature-card p-5 rounded-4 shadow-lg h-100 text-center position-relative overflow-hidden" style="background: linear-gradient(145deg, #161616 0%, #1e1e1e 100%);">
+                        <div class="feature-glow position-absolute top-0 start-50 translate-middle-x" style="width: 120px; height: 120px; background: rgba(212,175,55,0.15); filter: blur(40px);"></div>
+                        <div class="icon-box mx-auto mb-4 bg-black rounded-circle d-flex align-items-center justify-content-center border border-gold shadow" style="width: 80px; height: 80px; transition: all 0.4s ease;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="var(--primary-accent)" viewBox="0 0 16 16">
                                 <path d="M12.96 1.469c.154.31.154.689 0 1-.154.31-.448.514-.793.514-.344 0-.638-.203-.792-.514-.154-.31-.154-.689 0-1 .154-.31.448-.515.792-.515.345 0 .639.204.793.515zM4 11H2V4h2v7zm1-7v7h7V4H5zm4.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
                             </svg>
                         </div>
-                        <h4 class="fw-bold mb-3">Stylist Profesional</h4>
-                        <p class="text-muted">Barber berpengalaman yang siap memberikan potongan rambut terbaik sesuai dengan bentuk dan karakter wajah Anda.</p>
+                        <h4 class="fw-bold mb-3 text-white" style="letter-spacing: 0.5px;">Stylist Profesional</h4>
+                        <p class="text-light opacity-75 fw-light mb-0" style="font-size: 1.05rem; line-height: 1.7;">Barber pilihan kami sangat berpengalaman dan siap memberikan gaya rambut berkelas sesuai bentuk wajah karakter Anda.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="feature-card p-4 rounded-4 shadow h-100 text-center">
-                        <div class="icon-box mx-auto mb-4 bg-gold-subtle rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                <div class="col-md-4 animate-slide-up-delay">
+                    <div class="feature-card p-5 rounded-4 shadow-lg h-100 text-center position-relative overflow-hidden" style="background: linear-gradient(145deg, #161616 0%, #1e1e1e 100%);">
+                        <div class="feature-glow position-absolute top-0 start-50 translate-middle-x" style="width: 120px; height: 120px; background: rgba(212,175,55,0.15); filter: blur(40px);"></div>
+                        <div class="icon-box mx-auto mb-4 bg-black rounded-circle d-flex align-items-center justify-content-center border border-gold shadow" style="width: 80px; height: 80px; transition: all 0.4s ease;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="var(--primary-accent)" viewBox="0 0 16 16">
                                 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
                             </svg>
                         </div>
-                        <h4 class="fw-bold mb-3">Privasi & Nyaman</h4>
-                        <p class="text-muted">Nikmati suasana barbershop yang privat, bersih, dan nyaman. Pengalaman grooming sejati untuk pria modern.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Booking Section -->
-    <section id="booking-section" class="py-5 position-relative">
-        <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="booking-wrapper rounded-5 shadow-lg overflow-hidden d-flex flex-column flex-md-row">

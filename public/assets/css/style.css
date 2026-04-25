@@ -222,7 +222,3 @@ html { scroll-behavior: smooth; }
     color: var(--primary-accent);
     opacity: 1;
 }
-.form-floating > .form-control:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px var(--input-bg) inset;
-    -webkit-text-fill-color: #fff;
-}

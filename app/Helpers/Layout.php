@@ -44,6 +44,7 @@ if (!function_exists('layoutRenderHead')) {
         echo '<link rel="preconnect" href="https://fonts.googleapis.com">';
         echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
         echo '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">';
+        echo '<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">';
         echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">';
         echo '<link rel="stylesheet" href="' . $assetPrefixEsc . 'assets/css/style.css">';
         if (!empty($options['extra_head'])) {
@@ -59,7 +60,7 @@ if (!function_exists('layoutRenderNavbar')) {
         if ($variant === 'admin') {
             echo '<nav class="navbar navbar-dark bg-dark border-bottom border-secondary mb-4">';
             echo '<div class="container">';
-            echo '<a class="navbar-brand fw-bold text-gold" href="dashboard.php">CukurGo ADMIN</a>';
+            echo '<a class="navbar-brand text-gold fs-4" href="dashboard.php" style="font-family: \'Lobster\', cursive;">CukurGo ADMIN</a>';
             echo '<div class="d-flex align-items-center gap-3">';
             echo '<span class="text-muted small d-none d-sm-inline">Panel Monitoring Antrean</span>';
             echo '<a class="btn btn-sm btn-outline-light" href="logout.php">Keluar</a>';
@@ -71,7 +72,7 @@ if (!function_exists('layoutRenderNavbar')) {
 
         echo '<nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-dark sticky-top py-3 shadow-lg">';
         echo '<div class="container">';
-        echo '<a class="navbar-brand fw-bold text-gold fs-4" href="Index.php" style="letter-spacing: -0.05em;">CukurGo</a>';
+        echo '<a class="navbar-brand text-gold fs-1" href="Index.php" style="font-family: \'Lobster\', cursive; margin-right: 2rem;">CukurGo</a>';
         echo '<button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#cukurgoNav" aria-controls="cukurgoNav" aria-expanded="false" aria-label="Toggle navigation">';
         echo '<span class="navbar-toggler-icon"></span>';
         echo '</button>';
