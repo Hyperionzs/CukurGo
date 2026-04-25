@@ -40,13 +40,13 @@ layoutRenderHead([
                     <h1 class="display-3 fw-bold mb-3 animate-slide-up" style="line-height: 1.2;">Gaya Rambut Sempurna, <br><span class="text-gold">Tanpa Antre Lama.</span></h1>
                     <p class="lead text-light opacity-75 mb-4 animate-slide-up-delay">Rasakan pengalaman cukur premium dengan stylist profesional kami. Booking jadwal Anda sekarang dan nikmati layanan kelas satu.</p>
                     <div class="d-flex gap-3 justify-content-center justify-content-md-start animate-slide-up-delay-2">
-                        <a href="#booking-section" class="btn btn-gold btn-lg fw-bold px-4 rounded-pill shadow">Booking Sekarang</a>
+                        <a href="#booking-section" class="btn btn-gold btn-lg text-white fw-bold px-4 rounded-pill shadow">Booking Sekarang</a>
                         <a href="#features-section" class="btn btn-outline-light btn-lg fw-bold px-4 rounded-pill">Pelajari Lebih Lanjut</a>
                     </div>
                 </div>
                 <div class="col-md-6 position-relative hero-image-wrapper">
                     <div class="hero-image-decor"></div>
-                    <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Premium Barbershop" class="img-fluid hero-image rounded-4 shadow-lg animate-float" style="object-fit: cover; height: 500px; width: 100%;">
+                    <img src="assets/img/hero-barber.png" alt="Premium Barbershop" class="img-fluid hero-image rounded-4 shadow-lg animate-float" style="object-fit: cover; height: 500px; width: 100%;">
                 </div>
             </div>
         </div>

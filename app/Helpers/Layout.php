@@ -69,9 +69,23 @@ if (!function_exists('layoutRenderNavbar')) {
             return;
         }
 
-        echo '<nav class="navbar navbar-dark bg-dark border-bottom border-secondary">';
+        echo '<nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-dark sticky-top py-3 shadow-lg">';
         echo '<div class="container">';
-        echo '<a class="navbar-brand fw-bold text-gold" href="Index.php">CukurGo</a>';
+        echo '<a class="navbar-brand fw-bold text-gold fs-4" href="Index.php" style="letter-spacing: -0.05em;">CukurGo</a>';
+        echo '<button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#cukurgoNav" aria-controls="cukurgoNav" aria-expanded="false" aria-label="Toggle navigation">';
+        echo '<span class="navbar-toggler-icon"></span>';
+        echo '</button>';
+        echo '<div class="collapse navbar-collapse" id="cukurgoNav">';
+        echo '<ul class="navbar-nav mx-auto mb-3 mb-lg-0 mt-3 mt-lg-0 gap-lg-4 text-center fw-medium">';
+        echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php">Home</a></li>';
+        echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php#features-section">Keunggulan</a></li>';
+        echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php#booking-section">Layanan</a></li>';
+        echo '<li class="nav-item"><a class="nav-link text-light" href="Privacy.php">Privasi</a></li>';
+        echo '</ul>';
+        echo '<div class="d-grid d-lg-block">';
+        echo '<a class="btn btn-gold text-dark fw-bold rounded-pill px-4 shadow" href="Index.php#booking-section">Book Now</a>';
+        echo '</div>';
+        echo '</div>';
         echo '</div>';
         echo '</nav>';
     }
@@ -80,10 +94,11 @@ if (!function_exists('layoutRenderNavbar')) {
 if (!function_exists('layoutRenderFooter')) {
     function layoutRenderFooter(string $text = ''): void
     {
-        $footerText = $text !== '' ? $text : 'CukurGo - Booking barbershop online yang cepat dan rapi.';
-        echo '<footer class="text-center text-muted py-4 small">';
+        $footerText = $text !== '' ? $text : 'CukurGo - Booking barbershop online yang cepat dan rapi. © ' . date('Y');
+        echo '<footer class="text-center text-muted py-4 small bg-black border-top border-dark">';
         echo htmlspecialchars($footerText, ENT_QUOTES, 'UTF-8');
         echo '</footer>';
+        echo '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>';
     }
 }
 
