@@ -171,7 +171,7 @@ layoutRenderHead([
                             </p>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <div class="service-price">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></div>
-                                <button type="button" class="btn btn-sm btn-gold px-3 rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#bookingModal" onclick="document.getElementById('serviceInput').value = '<?= $s['id'] ?>'">Booking</button>
+                                <button type="button" class="btn btn-sm btn-gold px-3 rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#bookingModal" onclick="selectService('<?= $s['id'] ?>', '<?= htmlspecialchars(addslashes($s['name']), ENT_QUOTES, 'UTF-8') ?>', 'Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?>')">Booking</button>
                             </div>
                         </div>
                     </div>
@@ -239,17 +239,27 @@ layoutRenderHead([
                             </div>
                             
                             <div class="mb-4">
-                                <label for="serviceInput" class="form-label">Layanan</label>
+                                <label class="form-label">Layanan</label>
                                 <div class="input-icon-wrapper">
                                     <div class="input-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M3.5 3.5c-.614-.884-.074-1.962.858-2.5L8 7.226 11.642 1c.932.538 1.472 1.616.858 2.5L8.81 8.61l1.556 2.661a2.5 2.5 0 1 1-.798.635L8 9.36l-1.568 2.546a2.5 2.5 0 1 1-.798-.635L7.19 8.61 3.5 3.5zm2.5 4.082l.853-1.416L5.688 4.29 4.39 6.236 6 7.582zm4 0l1.61-1.346-1.298-1.945-.853 1.416L10 7.582zM4.5 14a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm7 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
                                     </div>
-                                    <select name="service_id" class="form-select" id="serviceInput" required>
-                                        <option value="" disabled selected>-- Pilih Layanan --</option>
+                                    <input type="hidden" name="service_id" id="serviceInput" required>
+                                    <button class="form-control text-start dropdown-toggle shadow-none w-100 d-flex justify-content-between align-items-center text-white" type="button" id="serviceDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="padding-right: 1rem; cursor: pointer;">
+                                        <span id="serviceDropdownText" class="text-muted">-- Pilih Layanan --</span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-dark w-100 shadow-lg border-0 rounded-4 mt-2" aria-labelledby="serviceDropdownBtn" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.2) !important;">
                                         <?php foreach($services as $s): ?>
-                                            <option value="<?= $s['id'] ?>"><?= htmlspecialchars($s['name']) ?> - Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></option>
+                                            <li>
+                                                <a class="dropdown-item py-2 px-3 service-select-item" href="#" data-value="<?= $s['id'] ?>" data-name="<?= htmlspecialchars($s['name'], ENT_QUOTES, 'UTF-8') ?>" data-price="Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?>">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="fw-semibold text-white"><?= htmlspecialchars($s['name']) ?></span>
+                                                        <span class="badge bg-gold-subtle text-gold rounded-pill px-2 py-1">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></span>
+                                                    </div>
+                                                </a>
+                                            </li>
                                         <?php endforeach; ?>
-                                    </select>
+                                    </ul>
                                 </div>
                             </div>
                             
@@ -374,5 +384,29 @@ layoutRenderHead([
         });
     </script>
     <?php endif; ?>
+
+    <script>
+        document.querySelectorAll('.service-select-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const val = this.getAttribute('data-value');
+                const name = this.getAttribute('data-name');
+                const price = this.getAttribute('data-price');
+                
+                document.getElementById('serviceInput').value = val;
+                
+                const btnText = document.getElementById('serviceDropdownText');
+                btnText.innerHTML = `<span class="text-white fw-semibold">${name}</span> <span class="text-gold fw-bold ms-2">${price}</span>`;
+                btnText.classList.remove('text-muted');
+            });
+        });
+
+        function selectService(id, name, price) {
+            document.getElementById('serviceInput').value = id;
+            const btnText = document.getElementById('serviceDropdownText');
+            btnText.innerHTML = `<span class="text-white fw-semibold">${name}</span> <span class="text-gold fw-bold ms-2">${price}</span>`;
+            btnText.classList.remove('text-muted');
+        }
+    </script>
 </body>
 </html>

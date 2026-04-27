@@ -432,3 +432,8 @@ html { scroll-behavior: smooth; }
     color: #000 !important;
     box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
 }
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: rgba(212, 175, 55, 0.1) !important;
+    color: var(--primary-accent) !important;
+}
