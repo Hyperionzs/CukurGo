@@ -200,7 +200,7 @@ layoutRenderHead([
                             </div>
                             <div>
                                 <h6 class="mb-1 fw-bold">Lokasi Kami</h6>
-                                <p class="mb-0 text-muted small">Jl. Gaya Pria No. 1, Jakarta Selatan</p>
+                                <p class="mb-0 text-gold small">Jl. Gaya Pria No. 1, Jakarta Selatan</p>
                             </div>
                         </div>
                     </div>

@@ -96,7 +96,7 @@ if (!function_exists('layoutRenderFooter')) {
     function layoutRenderFooter(string $text = ''): void
     {
         $footerText = $text !== '' ? $text : 'CukurGo - Booking barbershop online yang cepat dan rapi. © ' . date('Y');
-        echo '<footer class="text-center text-muted py-4 small bg-black border-top border-dark">';
+        echo '<footer class="text-center text-gold py-4 small bg-black border-top border-dark">';
         echo htmlspecialchars($footerText, ENT_QUOTES, 'UTF-8');
         echo '</footer>';
         echo '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>';
