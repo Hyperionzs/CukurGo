@@ -13,6 +13,65 @@ class BookingController
         $this->db = $database->getConnection();
     }
 
+    public function getSessions(): array
+    {
+        return [
+            'pagi' => ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30'],
+            'siang' => ['12:00', '12:30', '13:00', '13:30', '14:00', '14:30'],
+            'malam' => ['17:00', '17:30', '18:00', '18:30']
+        ];
+    }
+
+    public function getAvailability(string $date): array
+    {
+        $maxCapacity = 5; // Kapasitas 5 kursi per slot
+        $sessions = $this->getSessions();
+        
+        $query = "SELECT reservation_time, COUNT(*) as booked_count 
+                  FROM reservations 
+                  WHERE reservation_date = :date AND status != 'cancelled' 
+                  GROUP BY reservation_time";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([':date' => $date]);
+        $bookedData = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+
+        $tz = new DateTimeZone('Asia/Jakarta');
+        $now = new DateTime('now', $tz);
+        $isToday = ($date === $now->format('Y-m-d'));
+
+        $availability = [];
+        foreach ($sessions as $sessionName => $times) {
+            foreach ($times as $time) {
+                $count = isset($bookedData[$time]) ? (int)$bookedData[$time] : 0;
+                $remaining = $maxCapacity - $count;
+                
+                // Cek apakah waktu sudah lewat (jika hari ini)
+                $isPast = false;
+                if ($isToday) {
+                    $slotTime = DateTime::createFromFormat('Y-m-d H:i', $date . ' ' . $time, $tz);
+                    if ($slotTime < $now) {
+                        $isPast = true;
+                    }
+                }
+
+                $status = 'available';
+                if ($isPast || $remaining <= 0) {
+                    $status = 'full';
+                } elseif ($remaining === 1) {
+                    $status = 'warning';
+                }
+
+                $availability[$sessionName][] = [
+                    'time' => $time,
+                    'status' => $status,
+                    'remaining' => $remaining,
+                    'is_past' => $isPast
+                ];
+            }
+        }
+        return $availability;
+    }
+
     /**
      * @return array{ok: bool, message?: string}
      */
