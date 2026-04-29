@@ -214,7 +214,7 @@ layoutRenderHead([
                                 </div>
                                 <div>
                                     <h6 class="mb-1 fw-bold text-white">Jam Operasional</h6>
-                                    <p class="mb-0 text-gold small">Setiap Hari: 09:00 - 21:00</p>
+                                    <p class="mb-0 text-gold small">Setiap Hari: 09:00 - 20:30</p>
                                 </div>
                             </div>
                         </div>
