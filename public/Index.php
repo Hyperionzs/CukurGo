@@ -261,24 +261,29 @@ layoutRenderHead([
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M3.5 3.5c-.614-.884-.074-1.962.858-2.5L8 7.226 11.642 1c.932.538 1.472 1.616.858 2.5L8.81 8.61l1.556 2.661a2.5 2.5 0 1 1-.798.635L8 9.36l-1.568 2.546a2.5 2.5 0 1 1-.798-.635L7.19 8.61 3.5 3.5zm2.5 4.082l.853-1.416L5.688 4.29 4.39 6.236 6 7.582zm4 0l1.61-1.346-1.298-1.945-.853 1.416L10 7.582zM4.5 14a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm7 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
                                         </div>
                                         <input type="hidden" name="service_id" id="serviceInput" required>
-                                        <button class="form-control text-start shadow-none w-100 d-flex justify-content-between align-items-center" type="button" id="serviceDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="padding-right: 1.2rem; cursor: pointer;">
-                                            <span id="serviceDropdownText" class="text-white opacity-75">-- Pilih Layanan --</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary-accent)" class="bi bi-chevron-down ms-2 flex-shrink-0" viewBox="0 0 16 16">
+                                        <button class="form-control text-start shadow-none w-100 d-flex align-items-center py-2" type="button" id="serviceDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="padding-right: 1.2rem; cursor: pointer;">
+                                            <div id="serviceDropdownText" class="d-flex align-items-center justify-content-between flex-grow-1 me-2 text-start">
+                                                <span class="text-white opacity-75">-- Pilih Layanan --</span>
+                                            </div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary-accent)" class="bi bi-chevron-down flex-shrink-0" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                                             </svg>
                                         </button>
-                                        <ul class="dropdown-menu dropdown-menu-dark w-100 shadow-lg border-0 rounded-4 mt-2 py-2" aria-labelledby="serviceDropdownBtn" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.15) !important; max-height: 250px; overflow-y: auto;">
-                                            <?php foreach($services as $s): ?>
-                                                <li>
-                                                    <a class="dropdown-item py-3 px-4 service-select-item border-bottom border-secondary border-opacity-25" href="#" data-value="<?= $s['id'] ?>" data-name="<?= htmlspecialchars($s['name'], ENT_QUOTES, 'UTF-8') ?>" data-price="Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?>">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <span class="fw-semibold text-white fs-6"><?= htmlspecialchars($s['name']) ?></span>
-                                                            <span class="text-gold fw-bold">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>
+                                        <div class="dropdown-menu dropdown-menu-dark w-100 shadow-lg border-0 rounded-4 mt-2 p-0" aria-labelledby="serviceDropdownBtn" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.15) !important; overflow: hidden;">
+                                            <ul class="list-unstyled m-0 py-2 custom-scrollbar" style="max-height: 250px; overflow-y: auto;">
+                                                <?php foreach($services as $s): ?>
+                                                    <li>
+                                                        <a class="dropdown-item py-3 px-4 service-select-item border-bottom border-secondary border-opacity-25" href="#" data-value="<?= $s['id'] ?>" data-name="<?= htmlspecialchars($s['name'], ENT_QUOTES, 'UTF-8') ?>" data-price="Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?>">
+                                                            <div class="d-flex justify-content-between align-items-start">
+                                                                <span class="fw-semibold text-white fs-6 text-wrap pe-3" style="line-height: 1.3;"><?= htmlspecialchars($s['name']) ?></span>
+                                                                <span class="text-gold fw-bold flex-shrink-0 align-self-start mt-1">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </div>
+
                                     </div>
                                     <div class="text-danger mt-2 small d-none fw-semibold" id="serviceError"><i class="bi bi-exclamation-circle me-1"></i>Silakan pilih layanan terlebih dahulu.</div>
                                 </div>
@@ -444,7 +449,10 @@ layoutRenderHead([
                 document.getElementById('serviceInput').value = val;
                 
                 const btnText = document.getElementById('serviceDropdownText');
-                btnText.innerHTML = `<span class="text-white fw-semibold">${name}</span> <span class="text-gold fw-bold ms-2">${price}</span>`;
+                btnText.innerHTML = `
+                    <span class="text-white fw-semibold text-wrap pe-2" style="line-height: 1.3;">${name}</span>
+                    <span class="text-gold fw-bold flex-shrink-0 align-self-start">${price}</span>
+                `;
                 btnText.classList.remove('text-muted');
                 document.getElementById('serviceError').classList.add('d-none');
             });
@@ -453,7 +461,10 @@ layoutRenderHead([
         function selectService(id, name, price) {
             document.getElementById('serviceInput').value = id;
             const btnText = document.getElementById('serviceDropdownText');
-            btnText.innerHTML = `<span class="text-white fw-semibold">${name}</span> <span class="text-gold fw-bold ms-2">${price}</span>`;
+            btnText.innerHTML = `
+                <span class="text-white fw-semibold text-wrap pe-2" style="line-height: 1.3;">${name}</span>
+                <span class="text-gold fw-bold flex-shrink-0 align-self-start">${price}</span>
+            `;
             btnText.classList.remove('text-muted');
             document.getElementById('serviceError').classList.add('d-none');
         }
@@ -462,6 +473,22 @@ layoutRenderHead([
         document.addEventListener("DOMContentLoaded", function() {
             let currentStep = 1;
             const totalSteps = 3;
+            
+            const bookingModal = document.getElementById('bookingModal');
+            if (bookingModal) {
+                bookingModal.addEventListener('hidden.bs.modal', function () {
+                    currentStep = 1;
+                    updateStepper();
+                    const errors = ['serviceError', 'dateError', 'timeError'];
+                    errors.forEach(err => {
+                        const el = document.getElementById(err);
+                        if (el) {
+                            el.classList.add('d-none');
+                            el.classList.remove('d-block');
+                        }
+                    });
+                });
+            }
             
             const steps = document.querySelectorAll('.step-content');
             const indicators = document.querySelectorAll('.step-indicator');

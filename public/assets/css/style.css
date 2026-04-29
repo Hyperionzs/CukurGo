@@ -346,10 +346,10 @@ html { scroll-behavior: smooth; }
     padding-left: 3.5rem !important;
     border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
-    height: 3.2rem;
+    min-height: 3.2rem;
+    height: auto;
     font-size: 0.95rem;
 }
 
@@ -443,18 +443,18 @@ html { scroll-behavior: smooth; }
     color: var(--primary-accent) !important;
 }
 
-/* Custom Scrollbar for Dropdown Menu */
-.dropdown-menu::-webkit-scrollbar {
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
     width: 6px;
 }
-.dropdown-menu::-webkit-scrollbar-track {
+.custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 10px;
 }
-.dropdown-menu::-webkit-scrollbar-thumb {
+.custom-scrollbar::-webkit-scrollbar-thumb {
     background: rgba(212, 175, 55, 0.4);
     border-radius: 10px;
 }
-.dropdown-menu::-webkit-scrollbar-thumb:hover {
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(212, 175, 55, 0.8);
 }
