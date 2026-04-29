@@ -190,17 +190,32 @@ layoutRenderHead([
                     <!-- Close button -->
                     <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-4 z-3" data-bs-dismiss="modal" aria-label="Close"></button>
 
-                    <div class="booking-info p-5 text-white d-none d-md-flex flex-column justify-content-center" style="background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%); flex: 1;">
-                        <h3 class="fw-bold mb-4">Siap Cukur <span class="text-gold">Maksimal?</span></h3>
-                        <p class="mb-5 opacity-75" style="font-size: 1rem;">Amankan kursi Anda sekarang dan nikmati pengalaman grooming premium.</p>
-                        
-                        <div class="d-flex align-items-start mb-4">
-                            <div class="bg-gold-subtle p-3 rounded-circle me-3 d-flex align-items-center justify-content-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--primary-accent)" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                    <div class="booking-info p-5 text-white d-none d-md-flex flex-column justify-content-center position-relative" style="background: linear-gradient(135deg, rgba(26,26,26,0.92) 0%, rgba(13,13,13,0.98) 100%), url('assets/img/hero-barber.png') center/cover; flex: 1;">
+                        <div class="position-relative z-2">
+                            <h3 class="fw-bold mb-4">Siap Cukur <span class="text-gold">Maksimal?</span></h3>
+                            <p class="mb-5 opacity-75" style="font-size: 1rem;">Amankan kursi Anda sekarang dan nikmati pengalaman grooming premium bersama barber terbaik kami.</p>
+                            
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="bg-gold-subtle p-3 rounded-circle me-3 d-flex align-items-center justify-content-center shadow-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--primary-accent)" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1 fw-bold text-white">Lokasi Kami</h6>
+                                    <p class="mb-0 text-gold small">Jl. Gaya Pria No. 1, Jakarta Selatan</p>
+                                </div>
                             </div>
-                            <div>
-                                <h6 class="mb-1 fw-bold">Lokasi Kami</h6>
-                                <p class="mb-0 text-gold small">Jl. Gaya Pria No. 1, Jakarta Selatan</p>
+                            
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="bg-gold-subtle p-3 rounded-circle me-3 d-flex align-items-center justify-content-center shadow-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--primary-accent)" class="bi bi-clock" viewBox="0 0 16 16">
+                                      <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1 fw-bold text-white">Jam Operasional</h6>
+                                    <p class="mb-0 text-gold small">Setiap Hari: 09:00 - 21:00</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -215,156 +230,189 @@ layoutRenderHead([
                         <?php endif; ?>
                         
                         <h4 class="fw-bold mb-4 text-white" id="bookingModalLabel">Form Booking</h4>
-                        <form action="" method="POST" class="booking-form">
+                        <form action="" method="POST" class="booking-form" id="multiStepBookingForm">
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Csrf::token(), ENT_QUOTES, 'UTF-8') ?>">
                             
-                            <div class="mb-4">
-                                <label for="nameInput" class="form-label">Nama Lengkap</label>
-                                <div class="input-icon-wrapper">
-                                    <div class="input-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/></svg>
-                                    </div>
-                                    <input type="text" name="name" class="form-control" id="nameInput" placeholder="Masukkan nama Anda" required>
+                            <!-- Stepper Header -->
+                            <div class="d-flex justify-content-between mb-4 position-relative" id="bookingStepper">
+                                <div class="progress position-absolute top-50 start-0 translate-middle-y w-100" style="height: 4px; z-index: 1; background-color: rgba(255,255,255,0.1);">
+                                    <div class="progress-bar bg-gold" id="stepperProgress" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="step-indicator active d-flex flex-column align-items-center position-relative z-2" data-step="1">
+                                    <div class="step-icon rounded-circle bg-gold text-dark d-flex align-items-center justify-content-center fw-bold shadow" style="width: 40px; height: 40px; transition: all 0.3s ease;">1</div>
+                                    <span class="step-label small mt-2 text-white fw-semibold" style="transition: all 0.3s ease;">Layanan</span>
+                                </div>
+                                <div class="step-indicator d-flex flex-column align-items-center position-relative z-2" data-step="2">
+                                    <div class="step-icon rounded-circle bg-dark text-secondary border border-secondary d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px; transition: all 0.3s ease;">2</div>
+                                    <span class="step-label small mt-2 text-secondary" style="transition: all 0.3s ease;">Jadwal</span>
+                                </div>
+                                <div class="step-indicator d-flex flex-column align-items-center position-relative z-2" data-step="3">
+                                    <div class="step-icon rounded-circle bg-dark text-secondary border border-secondary d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px; transition: all 0.3s ease;">3</div>
+                                    <span class="step-label small mt-2 text-secondary" style="transition: all 0.3s ease;">Data Diri</span>
                                 </div>
                             </div>
-                            
-                            <div class="mb-4">
-                                <label for="phoneInput" class="form-label">Nomor WhatsApp</label>
-                                <div class="input-icon-wrapper">
-                                    <div class="input-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c-.003 1.396.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                                    </div>
-                                    <input type="text" name="phone" class="form-control" id="phoneInput" placeholder="Contoh: 0812345678" required>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <label class="form-label">Layanan</label>
-                                <div class="input-icon-wrapper">
-                                    <div class="input-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M3.5 3.5c-.614-.884-.074-1.962.858-2.5L8 7.226 11.642 1c.932.538 1.472 1.616.858 2.5L8.81 8.61l1.556 2.661a2.5 2.5 0 1 1-.798.635L8 9.36l-1.568 2.546a2.5 2.5 0 1 1-.798-.635L7.19 8.61 3.5 3.5zm2.5 4.082l.853-1.416L5.688 4.29 4.39 6.236 6 7.582zm4 0l1.61-1.346-1.298-1.945-.853 1.416L10 7.582zM4.5 14a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm7 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
-                                    </div>
-                                    <input type="hidden" name="service_id" id="serviceInput" required>
-                                    <button class="form-control text-start dropdown-toggle shadow-none w-100 d-flex justify-content-between align-items-center text-white" type="button" id="serviceDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="padding-right: 1rem; cursor: pointer;">
-                                        <span id="serviceDropdownText" class="text-muted">-- Pilih Layanan --</span>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark w-100 shadow-lg border-0 rounded-4 mt-2" aria-labelledby="serviceDropdownBtn" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.2) !important;">
-                                        <?php foreach($services as $s): ?>
-                                            <li>
-                                                <a class="dropdown-item py-2 px-3 service-select-item" href="#" data-value="<?= $s['id'] ?>" data-name="<?= htmlspecialchars($s['name'], ENT_QUOTES, 'UTF-8') ?>" data-price="Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?>">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <span class="fw-semibold text-white"><?= htmlspecialchars($s['name']) ?></span>
-                                                        <span class="badge bg-gold-subtle text-gold rounded-pill px-2 py-1">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></span>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <label for="dateInput" class="form-label">Tanggal Booking</label>
-                                <div class="input-icon-wrapper">
-                                    <div class="input-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg>
-                                    </div>
-                                    <input type="date" name="date" class="form-control" id="dateInput" required min="<?= date('Y-m-d') ?>">
-                                </div>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <div class="d-flex justify-content-between align-items-end mb-3">
-                                    <label class="form-label mb-0">Pilih Waktu</label>
-                                    <span class="badge bg-gold-subtle rounded-pill text-gold px-2 py-1" style="font-size: 0.7rem;">Live Availability</span>
-                                </div>
-                                
-                                <ul class="nav nav-pills mb-3 justify-content-between slot-pills" id="pills-tab" role="tablist">
-                                    <li class="nav-item flex-fill text-center mx-1" role="presentation">
-                                        <button class="nav-link w-100 active rounded-pill py-2" id="pills-pagi-tab" data-bs-toggle="pill" data-bs-target="#pills-pagi" type="button" role="tab">Pagi</button>
-                                    </li>
-                                    <li class="nav-item flex-fill text-center mx-1" role="presentation">
-                                        <button class="nav-link w-100 rounded-pill py-2" id="pills-siang-tab" data-bs-toggle="pill" data-bs-target="#pills-siang" type="button" role="tab">Siang</button>
-                                    </li>
-                                    <li class="nav-item flex-fill text-center mx-1" role="presentation">
-                                        <button class="nav-link w-100 rounded-pill py-2" id="pills-malam-tab" data-bs-toggle="pill" data-bs-target="#pills-malam" type="button" role="tab">Malam</button>
-                                    </li>
-                                </ul>
-                                
-                                <div class="tab-content" id="pills-tabContent">
-                                    <?php foreach ($availability as $sessionName => $slots): ?>
-                                    <div class="tab-pane fade <?= $sessionName === 'pagi' ? 'show active' : '' ?>" id="pills-<?= $sessionName ?>" role="tabpanel">
-                                        <div class="row g-2">
-                                            <?php foreach ($slots as $slot): ?>
-                                            <div class="col-4">
-                                                <input type="radio" name="time" value="<?= $slot['time'] ?>" 
-                                                       class="btn-check time-slot-input" 
-                                                       id="time<?= str_replace(':', '', $slot['time']) ?>" 
-                                                       <?= $slot['status'] === 'full' ? 'disabled' : '' ?> required>
-                                                <label class="btn btn-outline-gold w-100 time-slot-chip <?= $slot['status'] === 'full' ? 'full' : '' ?>" 
-                                                       for="time<?= str_replace(':', '', $slot['time']) ?>">
-                                                    <span class="d-block fw-bold <?= $slot['status'] === 'full' ? 'text-muted' : '' ?>"><?= $slot['time'] ?></span>
-                                                    <span class="d-block small text-<?= $slot['status'] === 'full' ? 'danger' : ($slot['status'] === 'warning' ? 'warning' : 'success') ?> slot-text">
-                                                        <?= $slot['status'] === 'full' ? ($slot['is_past'] ? 'Selesai' : 'Penuh') : ($slot['status'] === 'warning' ? 'Sisa 1' : 'Tersedia') ?>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <?php endforeach; ?>
+
+                            <!-- Step 1: Layanan -->
+                            <div class="step-content active animate-fade-in" id="step1">
+                                <div class="mb-4">
+                                    <label class="form-label">Layanan</label>
+                                    <div class="input-icon-wrapper">
+                                        <div class="input-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M3.5 3.5c-.614-.884-.074-1.962.858-2.5L8 7.226 11.642 1c.932.538 1.472 1.616.858 2.5L8.81 8.61l1.556 2.661a2.5 2.5 0 1 1-.798.635L8 9.36l-1.568 2.546a2.5 2.5 0 1 1-.798-.635L7.19 8.61 3.5 3.5zm2.5 4.082l.853-1.416L5.688 4.29 4.39 6.236 6 7.582zm4 0l1.61-1.346-1.298-1.945-.853 1.416L10 7.582zM4.5 14a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm7 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
                                         </div>
+                                        <input type="hidden" name="service_id" id="serviceInput" required>
+                                        <button class="form-control text-start shadow-none w-100 d-flex justify-content-between align-items-center" type="button" id="serviceDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="padding-right: 1.2rem; cursor: pointer;">
+                                            <span id="serviceDropdownText" class="text-white opacity-75">-- Pilih Layanan --</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary-accent)" class="bi bi-chevron-down ms-2 flex-shrink-0" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                            </svg>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-dark w-100 shadow-lg border-0 rounded-4 mt-2 py-2" aria-labelledby="serviceDropdownBtn" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.15) !important; max-height: 250px; overflow-y: auto;">
+                                            <?php foreach($services as $s): ?>
+                                                <li>
+                                                    <a class="dropdown-item py-3 px-4 service-select-item border-bottom border-secondary border-opacity-25" href="#" data-value="<?= $s['id'] ?>" data-name="<?= htmlspecialchars($s['name'], ENT_QUOTES, 'UTF-8') ?>" data-price="Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?>">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <span class="fw-semibold text-white fs-6"><?= htmlspecialchars($s['name']) ?></span>
+                                                            <span class="text-gold fw-bold">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
                                     </div>
-                                    <?php endforeach; ?>
+                                    <div class="text-danger mt-2 small d-none fw-semibold" id="serviceError"><i class="bi bi-exclamation-circle me-1"></i>Silakan pilih layanan terlebih dahulu.</div>
+                                </div>
+                                <div class="d-flex justify-content-end mt-4">
+                                    <button type="button" class="btn btn-gold px-4 py-2 fw-bold rounded-pill shadow btn-next">
+                                        Selanjutnya
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/></svg>
+                                    </button>
                                 </div>
                             </div>
-                            
-                            <script>
-                            document.getElementById('dateInput').addEventListener('change', function() {
-                                const date = this.value;
-                                const tabContent = document.getElementById('pills-tabContent');
-                                tabContent.style.opacity = '0.5';
+
+                            <!-- Step 2: Jadwal -->
+                            <div class="step-content d-none animate-fade-in" id="step2">
+                                <div class="mb-4">
+                                    <label for="dateInput" class="form-label">Tanggal Booking</label>
+                                    <div class="input-icon-wrapper">
+                                        <div class="input-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg>
+                                        </div>
+                                        <input type="date" name="date" class="form-control" id="dateInput" required min="<?= date('Y-m-d') ?>" value="<?= date('Y-m-d') ?>">
+                                    </div>
+                                    <div class="text-danger mt-2 small d-none fw-semibold" id="dateError"><i class="bi bi-exclamation-circle me-1"></i>Silakan pilih tanggal booking.</div>
+                                </div>
                                 
-                                fetch(`?action=get_availability&date=${date}`)
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        for (const session in data) {
-                                            const container = document.querySelector(`#pills-${session} .row`);
-                                            if (!container) continue;
-                                            container.innerHTML = '';
-                                            data[session].forEach(slot => {
-                                                const id = `time${slot.time.replace(':', '')}`;
-                                                const isDisabled = slot.status === 'full' ? 'disabled' : '';
-                                                const isFullClass = slot.status === 'full' ? 'full' : '';
-                                                const textClass = slot.status === 'full' ? 'text-muted' : '';
-                                                const statusClass = slot.status === 'full' ? 'danger' : (slot.status === 'warning' ? 'warning' : 'success');
-                                                const statusText = slot.status === 'full' ? (slot.is_past ? 'Selesai' : 'Penuh') : (slot.status === 'warning' ? 'Sisa 1' : 'Tersedia');
-                                                
-                                                container.innerHTML += `
-                                                    <div class="col-4">
-                                                        <input type="radio" name="time" value="${slot.time}" class="btn-check time-slot-input" id="${id}" ${isDisabled} required>
-                                                        <label class="btn btn-outline-gold w-100 time-slot-chip ${isFullClass}" for="${id}">
-                                                            <span class="d-block fw-bold ${textClass}">${slot.time}</span>
-                                                            <span class="d-block small text-${statusClass} slot-text">${statusText}</span>
-                                                        </label>
-                                                    </div>
-                                                `;
-                                            });
-                                        }
-                                        tabContent.style.opacity = '1';
-                                    });
-                            });
-                            </script>
-                            <p class="small text-gold mb-4 d-flex">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-check me-2 mt-1 flex-shrink-0" viewBox="0 0 16 16">
-                                    <path d="M5.338 1.59a59.768 59.768 0 0 0-2.836.856c-.99.333-1.6 1.12-1.6 2.062 0 1.84.02 4.14.1 6.131.08 2.054.49 4.135 1.76 5.568.64.71 1.48 1.16 2.5 1.34 1.15.2 2.37.2 3.65 0 1.02-.18 1.86-.63 2.5-1.34 1.27-1.433 1.68-3.514 1.76-5.568.08-1.99.1-4.291.1-6.131 0-.942-.61-1.73-1.6-2.062a59.768 59.768 0 0 0-2.836-.856C9.176 1.27 8.583 1 8 1s-1.176.27-2.662.59zM8 2.316a58.4 58.4 0 0 1 2.5.76C11.55 3.39 12 3.96 12 4.608c0 1.78-.016 3.98-.075 5.89-.06 1.9-.384 3.585-1.254 4.545-.5.54-1.09.84-1.802.99-1.04.22-2.13.22-3.17 0-.71-.15-1.3-.45-1.8-.99-.87-.96-1.19-2.64-1.25-4.54C2.016 8.58 2 6.38 2 4.608c0-.65.45-1.22 1.5-1.53a58.4 58.4 0 0 1 2.5-.76C6.88 2.115 7.42 2 8 2zm.854 4.854a.5.5 0 0 0-.708 0l-1.5 1.5a.5.5 0 0 0 .708.708l1.146-1.147 2.146 2.147a.5.5 0 0 0 .708-.708l-2.5-2.5z"/>
-                                </svg>
-                                <span>Dengan booking, Anda menyetujui <a href="Privacy.php" class="text-blue text-decoration-none border-bottom border-gold">Kebijakan Privasi</a>.</span>
-                            </p>
-                            
-                            <button type="submit" class="btn btn-gold w-100 py-3 fw-bold rounded-3 shadow d-flex justify-content-center align-items-center gap-2">
-                                <span>Konfirmasi Booking</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-                                </svg>
-                            </button>
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-end mb-3">
+                                        <label class="form-label mb-0">Pilih Waktu</label>
+                                        <span class="badge bg-gold-subtle rounded-pill text-gold px-2 py-1" style="font-size: 0.7rem;">Live Availability</span>
+                                    </div>
+                                    
+                                    <ul class="nav nav-pills mb-3 justify-content-between slot-pills" id="pills-tab" role="tablist">
+                                        <li class="nav-item flex-fill text-center mx-1" role="presentation">
+                                            <button class="nav-link w-100 active rounded-pill py-2 px-1" id="pills-pagi-tab" data-bs-toggle="pill" data-bs-target="#pills-pagi" type="button" role="tab">Pagi</button>
+                                        </li>
+                                        <li class="nav-item flex-fill text-center mx-1" role="presentation">
+                                            <button class="nav-link w-100 rounded-pill py-2 px-1" id="pills-siang-tab" data-bs-toggle="pill" data-bs-target="#pills-siang" type="button" role="tab">Siang</button>
+                                        </li>
+                                        <li class="nav-item flex-fill text-center mx-1" role="presentation">
+                                            <button class="nav-link w-100 rounded-pill py-2 px-1" id="pills-sore-tab" data-bs-toggle="pill" data-bs-target="#pills-sore" type="button" role="tab">Sore</button>
+                                        </li>
+                                        <li class="nav-item flex-fill text-center mx-1" role="presentation">
+                                            <button class="nav-link w-100 rounded-pill py-2 px-1" id="pills-malam-tab" data-bs-toggle="pill" data-bs-target="#pills-malam" type="button" role="tab">Malam</button>
+                                        </li>
+                                    </ul>
+                                    
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <?php foreach ($availability as $sessionName => $slots): ?>
+                                        <div class="tab-pane fade <?= $sessionName === 'pagi' ? 'show active' : '' ?>" id="pills-<?= $sessionName ?>" role="tabpanel">
+                                            <div class="row g-2">
+                                                <?php foreach ($slots as $slot): ?>
+                                                <div class="col-4">
+                                                    <input type="radio" name="time" value="<?= $slot['time'] ?>" 
+                                                           class="btn-check time-slot-input" 
+                                                           id="time<?= str_replace(':', '', $slot['time']) ?>" 
+                                                           <?= $slot['status'] === 'full' ? 'disabled' : '' ?> required>
+                                                    <label class="btn btn-outline-gold w-100 time-slot-chip <?= $slot['status'] === 'full' ? 'full' : '' ?>" 
+                                                           for="time<?= str_replace(':', '', $slot['time']) ?>">
+                                                        <span class="d-block fw-bold <?= $slot['status'] === 'full' ? 'text-muted' : '' ?>"><?= $slot['time'] ?></span>
+                                                        <span class="d-block small text-<?= $slot['status'] === 'full' ? 'danger' : ($slot['status'] === 'warning' ? 'warning' : 'success') ?> slot-text">
+                                                            <?= $slot['status'] === 'full' ? ($slot['is_past'] ? 'Selesai' : 'Penuh') : ($slot['status'] === 'warning' ? 'Sisa 1' : 'Tersedia') ?>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <div class="text-danger mt-3 p-2 bg-danger bg-opacity-10 rounded border border-danger border-opacity-25 small d-none fw-semibold" id="timeError">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+                                        Silakan pilih salah satu waktu yang tersedia sebelum melanjutkan.
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between mt-4 pt-2 border-top border-secondary border-opacity-25">
+                                    <button type="button" class="btn btn-dark px-4 py-2 fw-bold rounded-pill border border-secondary text-white btn-prev d-flex align-items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg> 
+                                        Kembali
+                                    </button>
+                                    <button type="button" class="btn btn-gold px-4 py-2 fw-bold rounded-pill shadow btn-next">
+                                        Selanjutnya
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Data Diri -->
+                            <div class="step-content d-none animate-fade-in" id="step3">
+                                <div class="mb-4">
+                                    <label for="nameInput" class="form-label">Nama Lengkap</label>
+                                    <div class="input-icon-wrapper">
+                                        <div class="input-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/></svg>
+                                        </div>
+                                        <input type="text" name="name" class="form-control" id="nameInput" placeholder="Masukkan nama Anda" required>
+                                    </div>
+                                    <div class="invalid-feedback">Silakan masukkan nama lengkap Anda.</div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="phoneInput" class="form-label">Nomor WhatsApp</label>
+                                    <div class="input-icon-wrapper">
+                                        <div class="input-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c-.003 1.396.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                                        </div>
+                                        <input type="text" name="phone" class="form-control" id="phoneInput" placeholder="Contoh: 0812345678" required>
+                                    </div>
+                                    <div class="invalid-feedback">Silakan masukkan nomor WhatsApp Anda.</div>
+                                </div>
+                                
+                                <div class="d-flex align-items-center mb-4 mt-2 p-3 rounded-3" style="background-color: rgba(255,255,255,0.02); border: 1px solid rgba(212,175,55,0.1);">
+                                    <div class="bg-gold-subtle rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 me-3" style="width: 36px; height: 36px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M5.338 1.59a59.768 59.768 0 0 0-2.836.856c-.99.333-1.6 1.12-1.6 2.062 0 1.84.02 4.14.1 6.131.08 2.054.49 4.135 1.76 5.568.64.71 1.48 1.16 2.5 1.34 1.15.2 2.37.2 3.65 0 1.02-.18 1.86-.63 2.5-1.34 1.27-1.433 1.68-3.514 1.76-5.568.08-1.99.1-4.291.1-6.131 0-.942-.61-1.73-1.6-2.062a59.768 59.768 0 0 0-2.836-.856C9.176 1.27 8.583 1 8 1s-1.176.27-2.662.59zM8 2.316a58.4 58.4 0 0 1 2.5.76C11.55 3.39 12 3.96 12 4.608c0 1.78-.016 3.98-.075 5.89-.06 1.9-.384 3.585-1.254 4.545-.5.54-1.09.84-1.802.99-1.04.22-2.13.22-3.17 0-.71-.15-1.3-.45-1.8-.99-.87-.96-1.19-2.64-1.25-4.54C2.016 8.58 2 6.38 2 4.608c0-.65.45-1.22 1.5-1.53a58.4 58.4 0 0 1 2.5-.76C6.88 2.115 7.42 2 8 2zm.854 4.854a.5.5 0 0 0-.708 0l-1.5 1.5a.5.5 0 0 0 .708.708l1.146-1.147 2.146 2.147a.5.5 0 0 0 .708-.708l-2.5-2.5z"/>
+                                        </svg>
+                                    </div>
+                                    <p class="small text-gold mb-0 m-0" style="line-height: 1.4;">
+                                        Dengan melakukan booking, Anda menyetujui <a href="Privacy.php" class="text-white text-decoration-none border-bottom border-gold fw-semibold">Kebijakan Privasi</a> kami.
+                                    </p>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4 pt-2 border-top border-secondary border-opacity-25">
+                                    <button type="button" class="btn btn-dark px-4 py-2 fw-bold rounded-pill border border-secondary text-white btn-prev d-flex align-items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg> 
+                                        Kembali
+                                    </button>
+                                    <button type="button" class="btn btn-gold px-4 py-2 fw-bold rounded-pill shadow d-flex justify-content-center align-items-center gap-2" id="submitBookingBtn">
+                                        <span>Konfirmasi Booking</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -398,6 +446,7 @@ layoutRenderHead([
                 const btnText = document.getElementById('serviceDropdownText');
                 btnText.innerHTML = `<span class="text-white fw-semibold">${name}</span> <span class="text-gold fw-bold ms-2">${price}</span>`;
                 btnText.classList.remove('text-muted');
+                document.getElementById('serviceError').classList.add('d-none');
             });
         });
 
@@ -406,7 +455,211 @@ layoutRenderHead([
             const btnText = document.getElementById('serviceDropdownText');
             btnText.innerHTML = `<span class="text-white fw-semibold">${name}</span> <span class="text-gold fw-bold ms-2">${price}</span>`;
             btnText.classList.remove('text-muted');
+            document.getElementById('serviceError').classList.add('d-none');
         }
+
+        // Stepper Logic
+        document.addEventListener("DOMContentLoaded", function() {
+            let currentStep = 1;
+            const totalSteps = 3;
+            
+            const steps = document.querySelectorAll('.step-content');
+            const indicators = document.querySelectorAll('.step-indicator');
+            const progress = document.getElementById('stepperProgress');
+            
+            const btnNext = document.querySelectorAll('.btn-next');
+            const btnPrev = document.querySelectorAll('.btn-prev');
+            
+            function updateStepper() {
+                // Update progress bar
+                const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+                progress.style.width = progressPercentage + '%';
+                
+                // Update step indicators
+                indicators.forEach((indicator, index) => {
+                    const stepNum = index + 1;
+                    const icon = indicator.querySelector('.step-icon');
+                    const label = indicator.querySelector('.step-label');
+                    
+                    if (stepNum < currentStep) {
+                        // Completed steps
+                        icon.className = 'step-icon rounded-circle bg-gold text-dark d-flex align-items-center justify-content-center fw-bold shadow';
+                        icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg>';
+                        label.className = 'step-label small mt-2 text-white fw-semibold';
+                    } else if (stepNum === currentStep) {
+                        // Current step
+                        icon.className = 'step-icon rounded-circle bg-gold text-dark d-flex align-items-center justify-content-center fw-bold shadow';
+                        icon.innerHTML = stepNum;
+                        label.className = 'step-label small mt-2 text-white fw-semibold';
+                    } else {
+                        // Future steps
+                        icon.className = 'step-icon rounded-circle bg-dark text-secondary border border-secondary d-flex align-items-center justify-content-center fw-bold';
+                        icon.innerHTML = stepNum;
+                        label.className = 'step-label small mt-2 text-secondary';
+                    }
+                });
+                
+                // Show/hide content
+                steps.forEach((step, index) => {
+                    if (index + 1 === currentStep) {
+                        step.classList.remove('d-none');
+                        step.classList.add('active');
+                    } else {
+                        step.classList.add('d-none');
+                        step.classList.remove('active');
+                    }
+                });
+            }
+            
+            function validateStep(step) {
+                let isValid = true;
+                
+                if (step === 1) {
+                    const serviceInput = document.getElementById('serviceInput');
+                    if (!serviceInput.value) {
+                        document.getElementById('serviceError').classList.remove('d-none');
+                        document.getElementById('serviceError').classList.add('d-block');
+                        isValid = false;
+                    } else {
+                        document.getElementById('serviceError').classList.add('d-none');
+                        document.getElementById('serviceError').classList.remove('d-block');
+                    }
+                } else if (step === 2) {
+                    const dateInput = document.getElementById('dateInput');
+                    let timeSelected = false;
+                    document.querySelectorAll('input[name="time"]').forEach(radio => {
+                        if(radio.checked) timeSelected = true;
+                    });
+                    
+                    if (!dateInput.value) {
+                        document.getElementById('dateError').classList.remove('d-none');
+                        document.getElementById('dateError').classList.add('d-block');
+                        isValid = false;
+                    } else {
+                        document.getElementById('dateError').classList.add('d-none');
+                        document.getElementById('dateError').classList.remove('d-block');
+                    }
+                    
+                    if (!timeSelected) {
+                        document.getElementById('timeError').classList.remove('d-none');
+                        document.getElementById('timeError').classList.add('d-block');
+                        isValid = false;
+                    } else {
+                        document.getElementById('timeError').classList.add('d-none');
+                        document.getElementById('timeError').classList.remove('d-block');
+                    }
+                } else if (step === 3) {
+                    const nameInput = document.getElementById('nameInput');
+                    const phoneInput = document.getElementById('phoneInput');
+                    
+                    if (!nameInput.value.trim()) {
+                        nameInput.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        nameInput.classList.remove('is-invalid');
+                    }
+                    
+                    if (!phoneInput.value.trim()) {
+                        phoneInput.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        phoneInput.classList.remove('is-invalid');
+                    }
+                }
+                
+                return isValid;
+            }
+            
+            btnNext.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (validateStep(currentStep)) {
+                        if (currentStep < totalSteps) {
+                            currentStep++;
+                            updateStepper();
+                        }
+                    }
+                });
+            });
+            
+            btnPrev.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (currentStep > 1) {
+                        currentStep--;
+                        updateStepper();
+                    }
+                });
+            });
+            
+            // Remove invalid class on input
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', function() {
+                    this.classList.remove('is-invalid');
+                    if(this.name === 'time') {
+                        document.getElementById('timeError').classList.add('d-none');
+                        document.getElementById('timeError').classList.remove('d-block');
+                    }
+                });
+            });
+
+            // Date change logic that was previously inline
+            document.getElementById('dateInput').addEventListener('change', function() {
+                const date = this.value;
+                const tabContent = document.getElementById('pills-tabContent');
+                tabContent.style.opacity = '0.5';
+                
+                fetch(`?action=get_availability&date=${date}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        for (const session in data) {
+                            const container = document.querySelector(`#pills-${session} .row`);
+                            if (!container) continue;
+                            container.innerHTML = '';
+                            data[session].forEach(slot => {
+                                const id = `time${slot.time.replace(':', '')}`;
+                                const isDisabled = slot.status === 'full' ? 'disabled' : '';
+                                const isFullClass = slot.status === 'full' ? 'full' : '';
+                                const textClass = slot.status === 'full' ? 'text-muted' : '';
+                                const statusClass = slot.status === 'full' ? 'danger' : (slot.status === 'warning' ? 'warning' : 'success');
+                                const statusText = slot.status === 'full' ? (slot.is_past ? 'Selesai' : 'Penuh') : (slot.status === 'warning' ? 'Sisa 1' : 'Tersedia');
+                                
+                                container.innerHTML += `
+                                    <div class="col-4">
+                                        <input type="radio" name="time" value="${slot.time}" class="btn-check time-slot-input" id="${id}" ${isDisabled} required>
+                                        <label class="btn btn-outline-gold w-100 time-slot-chip ${isFullClass}" for="${id}">
+                                            <span class="d-block fw-bold ${textClass}">${slot.time}</span>
+                                            <span class="d-block small text-${statusClass} slot-text">${statusText}</span>
+                                        </label>
+                                    </div>
+                                `;
+                            });
+                        }
+                        tabContent.style.opacity = '1';
+                        
+                        // Re-attach listeners for dynamically added inputs
+                        document.querySelectorAll('input[name="time"]').forEach(input => {
+                            input.addEventListener('change', function() {
+                                document.getElementById('timeError').classList.add('d-none');
+                                document.getElementById('timeError').classList.remove('d-block');
+                            });
+                        });
+                    });
+            });
+            
+            // Listeners for initial radio buttons
+            document.querySelectorAll('input[name="time"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    document.getElementById('timeError').classList.add('d-none');
+                    document.getElementById('timeError').classList.remove('d-block');
+                });
+            });
+
+            // Form submission validation
+            document.getElementById('multiStepBookingForm').addEventListener('submit', function(e) {
+                if (!validateStep(3)) {
+                    e.preventDefault();
+                }
+            });
+        });
     </script>
 </body>
 </html>

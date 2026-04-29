@@ -43,7 +43,7 @@ if (!function_exists('layoutRenderHead')) {
         echo '<link rel="icon" type="image/svg+xml" href="' . $assetPrefixEsc . 'assets/img/favicon.svg">';
         echo '<link rel="preconnect" href="https://fonts.googleapis.com">';
         echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
-        echo '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">';
+        echo '<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">';
         echo '<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">';
         echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">';
         echo '<link rel="stylesheet" href="' . $assetPrefixEsc . 'assets/css/style.css">';
