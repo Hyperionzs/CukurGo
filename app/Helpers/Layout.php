@@ -46,6 +46,7 @@ if (!function_exists('layoutRenderHead')) {
         echo '<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">';
         echo '<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">';
         echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">';
+        echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">';
         echo '<link rel="stylesheet" href="' . $assetPrefixEsc . 'assets/css/style.css">';
         if (!empty($options['extra_head'])) {
             echo $options['extra_head'];
@@ -84,7 +85,16 @@ if (!function_exists('layoutRenderNavbar')) {
         echo '<li class="nav-item"><a class="nav-link text-light" href="Privacy.php">Privasi</a></li>';
         echo '</ul>';
         echo '<div class="d-grid d-lg-block">';
-        echo '<button type="button" class="btn btn-gold text-dark fw-bold rounded-pill px-4 shadow" data-bs-toggle="modal" data-bs-target="#bookingModal">Book Now</button>';
+        
+        $currentPage = basename($_SERVER['PHP_SELF']);
+        $isIndex = (strtolower($currentPage) === 'index.php');
+        
+        if ($isIndex) {
+            echo '<button type="button" class="btn btn-gold text-dark fw-bold rounded-pill px-4 shadow" data-bs-toggle="modal" data-bs-target="#bookingModal">Book Now</button>';
+        } else {
+            echo '<a href="Index.php" class="btn btn-gold text-dark fw-bold rounded-pill px-4 shadow text-decoration-none" style="padding-top: 0.5rem; padding-bottom: 0.5rem; display: inline-block;">Book Now</a>';
+        }
+        
         echo '</div>';
         echo '</div>';
         echo '</div>';

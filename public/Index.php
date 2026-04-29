@@ -181,6 +181,88 @@ layoutRenderHead([
         </div>
     </section>
 
+    <!-- Testimonial Section -->
+    <section id="testimonial-section" class="py-5 bg-black position-relative overflow-hidden">
+        <div class="container py-5 position-relative z-1">
+            <div class="text-center mb-5 section-title animate-slide-up">
+                <h6 class="text-gold fw-bold text-uppercase tracking-wider" style="letter-spacing: 2px;">Testimonial</h6>
+                <h2 class="display-5 fw-bold mb-3">Apa Kata Mereka?</h2>
+                <div class="divider mx-auto mb-4"></div>
+                <p class="lead text-light opacity-75 mx-auto mb-0" style="max-width: 600px;">Pengalaman pelanggan kami setelah mencoba layanan premium CukurGo.</p>
+            </div>
+
+            <div class="row justify-content-center animate-slide-up-delay">
+                <div class="col-md-10 col-lg-8">
+                    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators mb-0" style="bottom: -50px;">
+                            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner pb-5">
+                            <div class="carousel-item active">
+                                <div class="testimonial-card text-center p-4 p-md-5 rounded-4" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.1);">
+                                    <div class="rating-stars mb-4 text-gold fs-4">
+                                        <i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i>
+                                    </div>
+                                    <h4 class="mb-3 text-white fst-italic">"Pelayanan luar biasa!"</h4>
+                                    <p class="lead text-light opacity-75 mb-4 px-md-4">"Saya tidak perlu antre panjang lagi. Sistem bookingnya sangat mudah dan barbernya profesional. Hasil cukur memuaskan."</p>
+                                    <div class="customer-info d-flex align-items-center justify-content-center">
+                                        <div class="customer-avatar bg-gold text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">A</div>
+                                        <div class="text-start">
+                                            <h6 class="mb-0 fw-bold text-white">Andi Saputra</h6>
+                                            <span class="small text-gold">Pelanggan Setia</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="testimonial-card text-center p-4 p-md-5 rounded-4" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.1);">
+                                    <div class="rating-stars mb-4 text-gold fs-4">
+                                        <i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i>
+                                    </div>
+                                    <h4 class="mb-3 text-white fst-italic">"Tempat paling nyaman"</h4>
+                                    <p class="lead text-light opacity-75 mb-4 px-md-4">"Interior barbershop sangat mewah dan bersih. CukurGo benar-benar memberikan standar baru untuk potong rambut pria di kota ini."</p>
+                                    <div class="customer-info d-flex align-items-center justify-content-center">
+                                        <div class="customer-avatar bg-gold text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">B</div>
+                                        <div class="text-start">
+                                            <h6 class="mb-0 fw-bold text-white">Budi Gunawan</h6>
+                                            <span class="small text-gold">Pengguna Baru</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="testimonial-card text-center p-4 p-md-5 rounded-4" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.1);">
+                                    <div class="rating-stars mb-4 text-gold fs-4">
+                                        <i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-half mx-1"></i>
+                                    </div>
+                                    <h4 class="mb-3 text-white fst-italic">"Sangat direkomendasikan!"</h4>
+                                    <p class="lead text-light opacity-75 mb-4 px-md-4">"Layanan hot towel shave-nya juara. Barber paham dengan gaya yang saya inginkan tanpa perlu banyak menjelaskan."</p>
+                                    <div class="customer-info d-flex align-items-center justify-content-center">
+                                        <div class="customer-avatar bg-gold text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">C</div>
+                                        <div class="text-start">
+                                            <h6 class="mb-0 fw-bold text-white">Chandra Wijaya</h6>
+                                            <span class="small text-gold">Pengguna Baru</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev" style="width: 5%;">
+                            <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg);"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next" style="width: 5%;">
+                            <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg);"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Booking Modal -->
     <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -409,7 +491,7 @@ layoutRenderHead([
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg> 
                                         Kembali
                                     </button>
-                                    <button type="button" class="btn btn-gold px-4 py-2 fw-bold rounded-pill shadow d-flex justify-content-center align-items-center gap-2" id="submitBookingBtn">
+                                    <button type="submit" class="btn btn-gold px-4 py-2 fw-bold rounded-pill shadow d-flex justify-content-center align-items-center gap-2" id="submitBookingBtn">
                                         <span>Konfirmasi Booking</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
                                             <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
@@ -632,7 +714,22 @@ layoutRenderHead([
             document.getElementById('dateInput').addEventListener('change', function() {
                 const date = this.value;
                 const tabContent = document.getElementById('pills-tabContent');
-                tabContent.style.opacity = '0.5';
+                
+                // Show Skeleton Loading
+                const sessions = ['pagi', 'siang', 'sore', 'malam'];
+                sessions.forEach(session => {
+                    const container = document.querySelector(`#pills-${session} .row`);
+                    if (container) {
+                        container.innerHTML = '';
+                        for(let i=0; i<6; i++) {
+                            container.innerHTML += `
+                                <div class="col-4">
+                                    <div class="skeleton-box skeleton-chip"></div>
+                                </div>
+                            `;
+                        }
+                    }
+                });
                 
                 fetch(`?action=get_availability&date=${date}`)
                     .then(response => response.json())
