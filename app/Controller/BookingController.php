@@ -120,6 +120,17 @@ class BookingController
             return ['ok' => false, 'message' => $timeErr];
         }
 
+        $tz = new DateTimeZone('Asia/Jakarta');
+        $now = new DateTime('now', $tz);
+        $isToday = ($date === $now->format('Y-m-d'));
+        
+        if ($isToday) {
+            $slotTime = DateTime::createFromFormat('Y-m-d H:i', $date . ' ' . $time, $tz);
+            if ($slotTime < $now) {
+                return ['ok' => false, 'message' => 'Waktu yang Anda pilih (' . $time . ') sudah terlewat untuk hari ini. Silakan pilih waktu yang akan datang atau ganti tanggal.'];
+            }
+        }
+
         $checkQuery = 'SELECT id FROM reservations WHERE reservation_date = :date AND reservation_time = :time AND status != \'cancelled\' LIMIT 1';
         $checkStmt = $this->db->prepare($checkQuery);
         $checkStmt->execute([

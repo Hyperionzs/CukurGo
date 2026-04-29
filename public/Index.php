@@ -351,11 +351,11 @@ layoutRenderHead([
                                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                                             </svg>
                                         </button>
-                                        <div class="dropdown-menu dropdown-menu-dark w-100 shadow-lg border-0 rounded-4 mt-2 p-0" aria-labelledby="serviceDropdownBtn" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.15) !important; overflow: hidden;">
+                                        <div class="dropdown-menu dropdown-menu-dark w-100 shadow-lg border-0 rounded-4 mt-2 p-0" aria-labelledby="serviceDropdownBtn" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.15) !important; border-radius: 1rem !important; overflow: hidden;">
                                             <ul class="list-unstyled m-0 py-2 custom-scrollbar" style="max-height: 250px; overflow-y: auto;">
                                                 <?php foreach($services as $s): ?>
                                                     <li>
-                                                        <a class="dropdown-item py-3 px-4 service-select-item border-bottom border-secondary border-opacity-25" href="#" data-value="<?= $s['id'] ?>" data-name="<?= htmlspecialchars($s['name'], ENT_QUOTES, 'UTF-8') ?>" data-price="Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?>">
+                                                        <a class="dropdown-item py-3 px-4 service-select-item border-bottom border-secondary border-opacity-25 text-wrap" style="white-space: normal;" href="#" data-value="<?= $s['id'] ?>" data-name="<?= htmlspecialchars($s['name'], ENT_QUOTES, 'UTF-8') ?>" data-price="Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?>">
                                                             <div class="d-flex justify-content-between align-items-start">
                                                                 <span class="fw-semibold text-white fs-6 text-wrap pe-3" style="line-height: 1.3;"><?= htmlspecialchars($s['name']) ?></span>
                                                                 <span class="text-gold fw-bold flex-shrink-0 align-self-start mt-1">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></span>
