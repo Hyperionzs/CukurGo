@@ -82,6 +82,7 @@ if (!function_exists('layoutRenderNavbar')) {
         echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php">Home</a></li>';
         echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php#features-section">Keunggulan</a></li>';
         echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php#services-section">Layanan</a></li>';
+        echo '<li class="nav-item"><a class="nav-link text-light" href="Index.php#testimonial-section">Testimonial</a></li>';
         echo '<li class="nav-item"><a class="nav-link text-light" href="Privacy.php">Privasi</a></li>';
         echo '</ul>';
         echo '<div class="d-grid d-lg-block">';

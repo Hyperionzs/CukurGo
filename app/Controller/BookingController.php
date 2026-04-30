@@ -131,14 +131,15 @@ class BookingController
             }
         }
 
-        $checkQuery = 'SELECT id FROM reservations WHERE reservation_date = :date AND reservation_time = :time AND status != \'cancelled\' LIMIT 1';
+        $checkQuery = 'SELECT COUNT(id) FROM reservations WHERE reservation_date = :date AND reservation_time = :time AND status != \'cancelled\'';
         $checkStmt = $this->db->prepare($checkQuery);
         $checkStmt->execute([
             ':date' => $date,
             ':time' => $time,
         ]);
-        if ($checkStmt->rowCount() > 0) {
-            return ['ok' => false, 'message' => 'Maaf, slot waktu sudah dibooking orang lain. Silakan pilih jam atau tanggal lain.'];
+        $bookedCount = (int) $checkStmt->fetchColumn();
+        if ($bookedCount >= 5) {
+            return ['ok' => false, 'message' => 'Maaf, slot waktu sudah penuh. Silakan pilih jam atau tanggal lain.'];
         }
 
         $query = 'INSERT INTO reservations (customer_name, phone_number, service_id, reservation_date, reservation_time) 

@@ -6,7 +6,14 @@ require_once __DIR__ . '/../app/Config/Database.php';
 require_once __DIR__ . '/../app/Helpers/Csrf.php';
 require_once __DIR__ . '/../app/Helpers/Layout.php';
 
+AppSession::start();
 $error_message = null;
+$old_service_id = $_POST['service_id'] ?? '';
+$old_date = $_POST['date'] ?? date('Y-m-d');
+$old_time = $_POST['time'] ?? '';
+$old_name = $_POST['name'] ?? '';
+$old_phone = $_POST['phone'] ?? '';
+$initialDate = $old_date ?: date('Y-m-d');
 
 // AJAX Handler untuk cek ketersediaan slot via JavaScript
 if (isset($_GET['action']) && $_GET['action'] === 'get_availability' && isset($_GET['date'])) {
@@ -17,7 +24,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_availability' && isset($_
 }
 
 $bookingCtrl = new BookingController();
-$initialDate = date('Y-m-d');
+$initialDate = $old_date ?: date('Y-m-d');
 $availability = $bookingCtrl->getAvailability($initialDate);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -303,11 +310,12 @@ layoutRenderHead([
                     </div>
                     <div class="booking-form-container p-5 bg-card position-relative" style="flex: 1.5;">
                         <?php if ($error_message !== null && $error_message !== ''): ?>
-                            <div class="alert alert-danger border-0 shadow-sm mb-4 rounded-3 d-flex align-items-center" style="background-color: rgba(255, 77, 77, 0.1); color: #ff4d4d;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                            <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4 rounded-3 d-flex align-items-center pe-4" style="background-color: rgba(255, 77, 77, 0.1); color: #ff4d4d;" id="mainErrorAlert">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2 flex-shrink-0" viewBox="0 0 16 16">
                                     <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                                 </svg>
-                                <?= htmlspecialchars((string) $error_message, ENT_QUOTES, 'UTF-8') ?>
+                                <div><?= htmlspecialchars((string) $error_message, ENT_QUOTES, 'UTF-8') ?></div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="filter: invert(1) grayscale(100%) brightness(200%);"></button>
                             </div>
                         <?php endif; ?>
                         
@@ -342,10 +350,28 @@ layoutRenderHead([
                                         <div class="input-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M3.5 3.5c-.614-.884-.074-1.962.858-2.5L8 7.226 11.642 1c.932.538 1.472 1.616.858 2.5L8.81 8.61l1.556 2.661a2.5 2.5 0 1 1-.798.635L8 9.36l-1.568 2.546a2.5 2.5 0 1 1-.798-.635L7.19 8.61 3.5 3.5zm2.5 4.082l.853-1.416L5.688 4.29 4.39 6.236 6 7.582zm4 0l1.61-1.346-1.298-1.945-.853 1.416L10 7.582zM4.5 14a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm7 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
                                         </div>
-                                        <input type="hidden" name="service_id" id="serviceInput" required>
+                                        <?php
+                                            $selectedServiceName = '-- Pilih Layanan --';
+                                            $selectedServicePrice = '';
+                                            if ($old_service_id) {
+                                                foreach($services as $s) {
+                                                    if ($s['id'] == $old_service_id) {
+                                                        $selectedServiceName = htmlspecialchars($s['name']);
+                                                        $selectedServicePrice = 'Rp ' . number_format($s['price'] ?? 0, 0, ',', '.');
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        ?>
+                                        <input type="hidden" name="service_id" id="serviceInput" value="<?= htmlspecialchars((string)$old_service_id, ENT_QUOTES, 'UTF-8') ?>" required>
                                         <button class="form-control text-start shadow-none w-100 d-flex align-items-center py-2" type="button" id="serviceDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="padding-right: 1.2rem; cursor: pointer;">
                                             <div id="serviceDropdownText" class="d-flex align-items-center justify-content-between flex-grow-1 me-2 text-start">
-                                                <span class="text-white opacity-75">-- Pilih Layanan --</span>
+                                                <?php if ($old_service_id && $selectedServicePrice): ?>
+                                                    <span class="text-white fw-semibold text-wrap pe-2" style="line-height: 1.3;"><?= $selectedServiceName ?></span>
+                                                    <span class="text-gold fw-bold flex-shrink-0 align-self-start"><?= $selectedServicePrice ?></span>
+                                                <?php else: ?>
+                                                    <span class="text-white opacity-75">-- Pilih Layanan --</span>
+                                                <?php endif; ?>
                                             </div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary-accent)" class="bi bi-chevron-down flex-shrink-0" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
@@ -385,7 +411,7 @@ layoutRenderHead([
                                         <div class="input-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg>
                                         </div>
-                                        <input type="date" name="date" class="form-control" id="dateInput" required min="<?= date('Y-m-d') ?>" value="<?= date('Y-m-d') ?>">
+                                        <input type="date" name="date" class="form-control" id="dateInput" required min="<?= date('Y-m-d') ?>" value="<?= htmlspecialchars($initialDate, ENT_QUOTES, 'UTF-8') ?>">
                                     </div>
                                     <div class="text-danger mt-2 small d-none fw-semibold" id="dateError"><i class="bi bi-exclamation-circle me-1"></i>Silakan pilih tanggal booking.</div>
                                 </div>
@@ -420,12 +446,13 @@ layoutRenderHead([
                                                     <input type="radio" name="time" value="<?= $slot['time'] ?>" 
                                                            class="btn-check time-slot-input" 
                                                            id="time<?= str_replace(':', '', $slot['time']) ?>" 
-                                                           <?= $slot['status'] === 'full' ? 'disabled' : '' ?> required>
+                                                           <?= $slot['status'] === 'full' ? 'disabled' : '' ?> 
+                                                           <?= ($old_time === $slot['time']) ? 'checked' : '' ?> required>
                                                     <label class="btn btn-outline-gold w-100 time-slot-chip <?= $slot['status'] === 'full' ? 'full' : '' ?>" 
                                                            for="time<?= str_replace(':', '', $slot['time']) ?>">
                                                         <span class="d-block fw-bold <?= $slot['status'] === 'full' ? 'text-muted' : '' ?>"><?= $slot['time'] ?></span>
                                                         <span class="d-block small text-<?= $slot['status'] === 'full' ? 'danger' : ($slot['status'] === 'warning' ? 'warning' : 'success') ?> slot-text">
-                                                            <?= $slot['status'] === 'full' ? ($slot['is_past'] ? 'Selesai' : 'Penuh') : ($slot['status'] === 'warning' ? 'Sisa 1' : 'Tersedia') ?>
+                                                            <?= $slot['status'] === 'full' ? ($slot['is_past'] ? 'Selesai' : 'Penuh') : 'Sisa ' . $slot['remaining'] ?>
                                                         </span>
                                                     </label>
                                                 </div>
@@ -459,7 +486,7 @@ layoutRenderHead([
                                         <div class="input-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/></svg>
                                         </div>
-                                        <input type="text" name="name" class="form-control" id="nameInput" placeholder="Masukkan nama Anda" required>
+                                        <input type="text" name="name" class="form-control" id="nameInput" placeholder="Masukkan nama Anda" value="<?= htmlspecialchars((string)$old_name, ENT_QUOTES, 'UTF-8') ?>" required>
                                     </div>
                                     <div class="invalid-feedback">Silakan masukkan nama lengkap Anda.</div>
                                 </div>
@@ -470,7 +497,7 @@ layoutRenderHead([
                                         <div class="input-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c-.003 1.396.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
                                         </div>
-                                        <input type="text" name="phone" class="form-control" id="phoneInput" placeholder="Contoh: 0812345678" required>
+                                        <input type="text" name="phone" class="form-control" id="phoneInput" placeholder="Contoh: 0812345678" value="<?= htmlspecialchars((string)$old_phone, ENT_QUOTES, 'UTF-8') ?>" required>
                                     </div>
                                     <div class="invalid-feedback">Silakan masukkan nomor WhatsApp Anda.</div>
                                 </div>
@@ -553,12 +580,15 @@ layoutRenderHead([
 
         // Stepper Logic
         document.addEventListener("DOMContentLoaded", function() {
-            let currentStep = 1;
+            let currentStep = <?= ($error_message !== null && $error_message !== '') ? 3 : 1 ?>;
             const totalSteps = 3;
             
             const bookingModal = document.getElementById('bookingModal');
             if (bookingModal) {
                 bookingModal.addEventListener('hidden.bs.modal', function () {
+                    const mainError = document.getElementById('mainErrorAlert');
+                    if (mainError) mainError.remove();
+                    
                     currentStep = 1;
                     updateStepper();
                     const errors = ['serviceError', 'dateError', 'timeError'];
@@ -744,7 +774,7 @@ layoutRenderHead([
                                 const isFullClass = slot.status === 'full' ? 'full' : '';
                                 const textClass = slot.status === 'full' ? 'text-muted' : '';
                                 const statusClass = slot.status === 'full' ? 'danger' : (slot.status === 'warning' ? 'warning' : 'success');
-                                const statusText = slot.status === 'full' ? (slot.is_past ? 'Selesai' : 'Penuh') : (slot.status === 'warning' ? 'Sisa 1' : 'Tersedia');
+                                const statusText = slot.status === 'full' ? (slot.is_past ? 'Selesai' : 'Penuh') : `Sisa ${slot.remaining}`;
                                 
                                 container.innerHTML += `
                                     <div class="col-4">
@@ -783,6 +813,9 @@ layoutRenderHead([
                     e.preventDefault();
                 }
             });
+            
+            // Initialize stepper state
+            updateStepper();
         });
     </script>
 </body>
