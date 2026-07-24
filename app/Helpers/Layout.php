@@ -3,6 +3,7 @@
 if (!function_exists('layoutRenderHead')) {
     /**
      * @param array<string, string> $options
+     * Render tag <head> HTML, biar gak repetitive di tiap halaman
      */
     function layoutRenderHead(array $options = []): void
     {

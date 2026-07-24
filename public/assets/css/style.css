@@ -121,17 +121,17 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Base Adjustments */
+/* Penyesuaian Dasar */
 html { scroll-behavior: smooth; }
 
-/* Utilities */
+/* Utilitas */
 .bg-gold { background-color: var(--primary-accent) !important; color: #000 !important; }
 .text-gold { color: var(--primary-accent) !important; }
 .bg-gold-subtle { background-color: rgba(212, 175, 55, 0.1) !important; color: var(--primary-accent) !important; }
 .border-gold { border-color: var(--primary-accent) !important; }
 .tracking-wider { letter-spacing: 0.1em; }
 
-/* Buttons Overrides */
+/* Override Tombol */
 .btn-gold {
     background-color: var(--primary-accent);
     color: #000;
@@ -147,7 +147,7 @@ html { scroll-behavior: smooth; }
 }
 .btn-outline-light:hover { color: #000; }
 
-/* Hero Section */
+/* Bagian Hero */
 .hero-section {
     min-height: 85vh;
     padding: 80px 0;
@@ -174,7 +174,7 @@ html { scroll-behavior: smooth; }
 }
 .hero-image { position: relative; z-index: 1; border: 1px solid rgba(255,255,255,0.1); }
 
-/* Custom Animations */
+/* Animasi Kustom */
 .animate-fade-in { animation: fadeIn 1s ease both; }
 .animate-slide-up { animation: slideUp 1s ease both; }
 .animate-slide-up-delay { animation: slideUp 1s ease 0.2s both; }
@@ -185,7 +185,7 @@ html { scroll-behavior: smooth; }
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes floating { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
 
-/* Cards & Features */
+/* Kartu & Fitur */
 .feature-card {
     background-color: var(--card-bg);
     border: 1px solid rgba(255,255,255,0.05);
@@ -200,12 +200,12 @@ html { scroll-behavior: smooth; }
 .feature-card:hover .icon-box { background-color: var(--primary-accent) !important; color: #000; }
 .feature-card:hover .icon-box svg { fill: #000 !important; }
 
-/* Booking Section */
+/* Bagian Booking */
 .bg-black { background-color: #050505; }
 .bg-card { background-color: var(--card-bg); }
 .divider { width: 60px; height: 3px; background-color: var(--primary-accent); border-radius: 3px; }
 
-/* Floating Labels Override for Dark Mode */
+/* Override Floating Label buat Mode Gelap */
 .form-floating > .form-control,
 .form-floating > .form-select {
     background-color: var(--input-bg);
@@ -228,7 +228,7 @@ html { scroll-behavior: smooth; }
     opacity: 1;
 }
 
-/* Service Cards Enhanced */
+/* Kartu Layanan yang Ditingkatkan */
 .service-card {
     background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%);
     border: 1px solid rgba(255, 255, 255, 0.03);
@@ -316,7 +316,7 @@ html { scroll-behavior: smooth; }
     margin-bottom: 1rem;
 }
 
-/* --- Premium Booking Form Enhancements --- */
+/* --- Pembaruan Form Booking Premium --- */
 
 .booking-form-container {
     background: linear-gradient(135deg, #1e1e1e 0%, #121212 100%);
@@ -374,9 +374,9 @@ html { scroll-behavior: smooth; }
     justify-content: center;
 }
 
-/* --- Time Slot Chips Enhancements --- */
+/* --- Peningkatan Chip Waktu --- */
 .btn-outline-gold {
-    color: var(--text-main);
+    color: #cc9900;
     border: 1px solid rgba(212, 175, 55, 0.3);
     background: rgba(255, 255, 255, 0.02);
     transition: all 0.3s ease;
@@ -443,7 +443,7 @@ html { scroll-behavior: smooth; }
     color: var(--primary-accent) !important;
 }
 
-/* Custom Scrollbar */
+/* Scrollbar Kustom */
 .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
 }
@@ -459,7 +459,7 @@ html { scroll-behavior: smooth; }
     background: rgba(212, 175, 55, 0.8);
 }
 
-/* --- Skeleton Loading Shimmer --- */
+/* --- Efek Skeleton Loading --- */
 .skeleton-box {
     display: inline-block;
     height: 100%;
@@ -498,4 +498,37 @@ html { scroll-behavior: smooth; }
 .skeleton-chip {
     height: 54px;
     width: 100%;
+}
+
+/* --- Peningkatan Bagian Testimonial --- */
+.testimonial-card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.testimonial-card:hover {
+    border-color: rgba(212, 175, 55, 0.25) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 175, 55, 0.08);
+}
+
+.testimonial-indicators button {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    border: 2px solid rgba(212, 175, 55, 0.4) !important;
+    background-color: transparent !important;
+    opacity: 1 !important;
+    transition: all 0.3s ease !important;
+    margin: 0 5px !important;
+}
+
+.testimonial-indicators button.active {
+    background-color: var(--primary-accent) !important;
+    border-color: var(--primary-accent) !important;
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+/* Override halaman admin */
+.admin-body {
+    background: #0a0a0a;
 }

@@ -22,7 +22,7 @@ class AdminAuth
     }
 
     /**
-     * If ADMIN_ALLOWED_IPS is set (comma-separated), only those IPs may access admin.
+     * Kalo ADMIN_ALLOWED_IPS diisi (pisah koma), cuma IP itu yang bisa akses admin.
      */
     public static function assertIpAllowlist(): void
     {
@@ -43,7 +43,7 @@ class AdminAuth
     }
 
     /**
-     * Optional extra gate: set ADMIN_BASIC_USER and ADMIN_BASIC_PASS in .env
+     * Pintu tambahan: isi ADMIN_BASIC_USER dan ADMIN_BASIC_PASS di .env
      */
     public static function assertHttpBasicIfConfigured(): void
     {

@@ -13,9 +13,10 @@ $old_date = $_POST['date'] ?? date('Y-m-d');
 $old_time = $_POST['time'] ?? '';
 $old_name = $_POST['name'] ?? '';
 $old_phone = $_POST['phone'] ?? '';
+$old_notes = $_POST['notes'] ?? '';
 $initialDate = $old_date ?: date('Y-m-d');
 
-// AJAX Handler untuk cek ketersediaan slot via JavaScript
+// Handler AJAX buat cek ketersediaan slot lewat JavaScript
 if (isset($_GET['action']) && $_GET['action'] === 'get_availability' && isset($_GET['date'])) {
     header('Content-Type: application/json');
     $ctrl = new BookingController();
@@ -139,7 +140,7 @@ layoutRenderHead([
             
             <div class="row g-4 justify-content-center">
                 <?php foreach($services as $s): 
-                    // Logika mapping gambar & badge sederhana
+                    // Mapping gambar & badge tiap layanan
                     $imagePath = 'assets/img/service-haircut.png';
                     $isPopular = false;
                     $duration = '30 - 45 Menit';
@@ -190,78 +191,102 @@ layoutRenderHead([
 
     <!-- Testimonial Section -->
     <section id="testimonial-section" class="py-5 bg-black position-relative overflow-hidden">
+        <!-- Decorative Background -->
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.06) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.04) 0%, transparent 50%); pointer-events: none;"></div>
+        
         <div class="container py-5 position-relative z-1">
             <div class="text-center mb-5 section-title animate-slide-up">
                 <h6 class="text-gold fw-bold text-uppercase tracking-wider" style="letter-spacing: 2px;">Testimonial</h6>
                 <h2 class="display-5 fw-bold mb-3">Apa Kata Mereka?</h2>
                 <div class="divider mx-auto mb-4"></div>
-                <p class="lead text-light opacity-75 mx-auto mb-0" style="max-width: 600px;">Pengalaman pelanggan kami setelah mencoba layanan premium CukurGo.</p>
+                <p class="lead text-light opacity-75 mx-auto mb-0" style="max-width: 600px; font-weight: 400; line-height: 1.7;">Pengalaman pelanggan kami setelah mencoba layanan premium CukurGo.</p>
             </div>
 
             <div class="row justify-content-center animate-slide-up-delay">
                 <div class="col-md-10 col-lg-8">
-                    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators mb-0" style="bottom: -50px;">
+                    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                        <div class="carousel-indicators testimonial-indicators mb-0" style="bottom: -55px;">
                             <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                             <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                             <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner pb-5">
                             <div class="carousel-item active">
-                                <div class="testimonial-card text-center p-4 p-md-5 rounded-4" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.1);">
-                                    <div class="rating-stars mb-4 text-gold fs-4">
-                                        <i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i>
-                                    </div>
-                                    <h4 class="mb-3 text-white fst-italic">"Pelayanan luar biasa!"</h4>
-                                    <p class="lead text-light opacity-75 mb-4 px-md-4">"Saya tidak perlu antre panjang lagi. Sistem bookingnya sangat mudah dan barbernya profesional. Hasil cukur memuaskan."</p>
-                                    <div class="customer-info d-flex align-items-center justify-content-center">
-                                        <div class="customer-avatar bg-gold text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">A</div>
-                                        <div class="text-start">
-                                            <h6 class="mb-0 fw-bold text-white">Andi Saputra</h6>
-                                            <span class="small text-gold">Pelanggan Setia</span>
+                                <div class="testimonial-card text-center p-4 p-md-5 rounded-4 position-relative overflow-hidden" style="background: linear-gradient(145deg, rgba(30,30,30,0.95) 0%, rgba(18,18,18,0.98) 100%); border: 1px solid rgba(212, 175, 55, 0.12); backdrop-filter: blur(10px);">
+                                    <!-- Gold glow -->
+                                    <div class="position-absolute" style="top:-40px;left:50%;transform:translateX(-50%);width:200px;height:100px;background:rgba(212,175,55,0.08);filter:blur(50px);pointer-events:none;"></div>
+                                    <!-- Quote icon -->
+                                    <div class="position-relative z-1">
+                                        <div class="mb-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="var(--primary-accent)" viewBox="0 0 16 16" style="opacity:0.3;"><path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 9 7.558V11a1 1 0 0 0 1 1h2Zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 3 7.558V11a1 1 0 0 0 1 1h2Z"/></svg>
+                                        </div>
+                                        <div class="rating-stars mb-3">
+                                            <i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i>
+                                        </div>
+                                        <h4 class="mb-3 text-white fw-bold" style="font-family:'Montserrat',sans-serif;text-transform:none;letter-spacing:0;">"Pelayanan luar biasa!"</h4>
+                                        <p class="text-light opacity-75 mb-4 px-md-4 mx-auto" style="max-width:500px;line-height:1.8;font-size:1rem;">Saya tidak perlu antre panjang lagi. Sistem bookingnya sangat mudah dan barbernya profesional. Hasil cukur memuaskan.</p>
+                                        <div class="d-inline-flex align-items-center gap-3 px-4 py-2 rounded-pill" style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.1);">
+                                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold shadow" style="width:45px;height:45px;background:linear-gradient(135deg,var(--primary-accent),#b8962e);color:#000;font-size:1.1rem;">A</div>
+                                            <div class="text-start">
+                                                <h6 class="mb-0 fw-bold text-white" style="font-size:0.95rem;">Andi Saputra</h6>
+                                                <span class="text-gold" style="font-size:0.75rem;">Pelanggan Setia</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <div class="testimonial-card text-center p-4 p-md-5 rounded-4" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.1);">
-                                    <div class="rating-stars mb-4 text-gold fs-4">
-                                        <i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i>
-                                    </div>
-                                    <h4 class="mb-3 text-white fst-italic">"Tempat paling nyaman"</h4>
-                                    <p class="lead text-light opacity-75 mb-4 px-md-4">"Interior barbershop sangat mewah dan bersih. CukurGo benar-benar memberikan standar baru untuk potong rambut pria di kota ini."</p>
-                                    <div class="customer-info d-flex align-items-center justify-content-center">
-                                        <div class="customer-avatar bg-gold text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">B</div>
-                                        <div class="text-start">
-                                            <h6 class="mb-0 fw-bold text-white">Budi Gunawan</h6>
-                                            <span class="small text-gold">Pengguna Baru</span>
+                                <div class="testimonial-card text-center p-4 p-md-5 rounded-4 position-relative overflow-hidden" style="background: linear-gradient(145deg, rgba(30,30,30,0.95) 0%, rgba(18,18,18,0.98) 100%); border: 1px solid rgba(212, 175, 55, 0.12); backdrop-filter: blur(10px);">
+                                    <div class="position-absolute" style="top:-40px;left:50%;transform:translateX(-50%);width:200px;height:100px;background:rgba(212,175,55,0.08);filter:blur(50px);pointer-events:none;"></div>
+                                    <div class="position-relative z-1">
+                                        <div class="mb-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="var(--primary-accent)" viewBox="0 0 16 16" style="opacity:0.3;"><path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 9 7.558V11a1 1 0 0 0 1 1h2Zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 3 7.558V11a1 1 0 0 0 1 1h2Z"/></svg>
+                                        </div>
+                                        <div class="rating-stars mb-3">
+                                            <i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i>
+                                        </div>
+                                        <h4 class="mb-3 text-white fw-bold" style="font-family:'Montserrat',sans-serif;text-transform:none;letter-spacing:0;">"Tempat paling nyaman"</h4>
+                                        <p class="text-light opacity-75 mb-4 px-md-4 mx-auto" style="max-width:500px;line-height:1.8;font-size:1rem;">Interior barbershop sangat mewah dan bersih. CukurGo benar-benar memberikan standar baru untuk potong rambut pria di kota ini.</p>
+                                        <div class="d-inline-flex align-items-center gap-3 px-4 py-2 rounded-pill" style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.1);">
+                                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold shadow" style="width:45px;height:45px;background:linear-gradient(135deg,var(--primary-accent),#b8962e);color:#000;font-size:1.1rem;">B</div>
+                                            <div class="text-start">
+                                                <h6 class="mb-0 fw-bold text-white" style="font-size:0.95rem;">Budi Gunawan</h6>
+                                                <span class="text-gold" style="font-size:0.75rem;">Pengguna Baru</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <div class="testimonial-card text-center p-4 p-md-5 rounded-4" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.1);">
-                                    <div class="rating-stars mb-4 text-gold fs-4">
-                                        <i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-fill mx-1"></i><i class="bi bi-star-half mx-1"></i>
-                                    </div>
-                                    <h4 class="mb-3 text-white fst-italic">"Sangat direkomendasikan!"</h4>
-                                    <p class="lead text-light opacity-75 mb-4 px-md-4">"Layanan hot towel shave-nya juara. Barber paham dengan gaya yang saya inginkan tanpa perlu banyak menjelaskan."</p>
-                                    <div class="customer-info d-flex align-items-center justify-content-center">
-                                        <div class="customer-avatar bg-gold text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">C</div>
-                                        <div class="text-start">
-                                            <h6 class="mb-0 fw-bold text-white">Chandra Wijaya</h6>
-                                            <span class="small text-gold">Pengguna Baru</span>
+                                <div class="testimonial-card text-center p-4 p-md-5 rounded-4 position-relative overflow-hidden" style="background: linear-gradient(145deg, rgba(30,30,30,0.95) 0%, rgba(18,18,18,0.98) 100%); border: 1px solid rgba(212, 175, 55, 0.12); backdrop-filter: blur(10px);">
+                                    <div class="position-absolute" style="top:-40px;left:50%;transform:translateX(-50%);width:200px;height:100px;background:rgba(212,175,55,0.08);filter:blur(50px);pointer-events:none;"></div>
+                                    <div class="position-relative z-1">
+                                        <div class="mb-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="var(--primary-accent)" viewBox="0 0 16 16" style="opacity:0.3;"><path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 9 7.558V11a1 1 0 0 0 1 1h2Zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 3 7.558V11a1 1 0 0 0 1 1h2Z"/></svg>
+                                        </div>
+                                        <div class="rating-stars mb-3">
+                                            <i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-fill text-gold mx-1"></i><i class="bi bi-star-half text-gold mx-1"></i>
+                                        </div>
+                                        <h4 class="mb-3 text-white fw-bold" style="font-family:'Montserrat',sans-serif;text-transform:none;letter-spacing:0;">"Sangat direkomendasikan!"</h4>
+                                        <p class="text-light opacity-75 mb-4 px-md-4 mx-auto" style="max-width:500px;line-height:1.8;font-size:1rem;">Layanan hot towel shave-nya juara. Barber paham dengan gaya yang saya inginkan tanpa perlu banyak menjelaskan.</p>
+                                        <div class="d-inline-flex align-items-center gap-3 px-4 py-2 rounded-pill" style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.1);">
+                                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold shadow" style="width:45px;height:45px;background:linear-gradient(135deg,var(--primary-accent),#b8962e);color:#000;font-size:1.1rem;">C</div>
+                                            <div class="text-start">
+                                                <h6 class="mb-0 fw-bold text-white" style="font-size:0.95rem;">Chandra Wijaya</h6>
+                                                <span class="text-gold" style="font-size:0.75rem;">Pengguna Baru</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev" style="width: 5%;">
-                            <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg);"></span>
+                        <!-- Prev/Next buttons -->
+                        <button class="carousel-control-prev d-none d-md-flex align-items-center justify-content-center" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev" style="width:50px;height:50px;top:50%;transform:translateY(-50%);left:-25px;background:rgba(212,175,55,0.15);border:1px solid rgba(212,175,55,0.2);border-radius:50%;opacity:1;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="var(--primary-accent)" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next" style="width: 5%;">
-                            <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg);"></span>
+                        <button class="carousel-control-next d-none d-md-flex align-items-center justify-content-center" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next" style="width:50px;height:50px;top:50%;transform:translateY(-50%);right:-25px;background:rgba(212,175,55,0.15);border:1px solid rgba(212,175,55,0.2);border-radius:50%;opacity:1;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="var(--primary-accent)" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
@@ -306,6 +331,26 @@ layoutRenderHead([
                                     <p class="mb-0 text-gold small">Setiap Hari: 09:00 - 20:30</p>
                                 </div>
                             </div>
+                            
+                            <div id="realtimeSummary" class="mt-4 p-4 rounded-4" style="background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.15); transition: opacity 0.3s; opacity: 0.5;">
+                                <h6 class="fw-bold text-gold mb-3 border-bottom border-gold pb-2 border-opacity-25" style="letter-spacing: 1px;"><i class="bi bi-list-check me-2"></i>Ringkasan Booking</h6>
+                                <div class="d-none align-items-center mb-2">
+                                    <i class="bi bi-person-badge text-gold me-3 opacity-75"></i>
+                                    <span class="text-white small fw-semibold" id="summaryBarber">Pilih Barber...</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-scissors text-gold me-3 opacity-75"></i>
+                                    <span class="text-white small fw-semibold" id="summaryService">Pilih Layanan...</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-calendar-event text-gold me-3 opacity-75"></i>
+                                    <span class="text-white small fw-semibold" id="summaryDate">Pilih Jadwal...</span>
+                                </div>
+                                <div class="d-flex align-items-center pt-2 border-top border-light border-opacity-10">
+                                    <i class="bi bi-cash text-gold me-3"></i>
+                                    <span class="text-white small fw-bold text-gold fs-6" id="summaryPrice">Rp 0</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="booking-form-container p-5 bg-card position-relative" style="flex: 1.5;">
@@ -342,60 +387,38 @@ layoutRenderHead([
                                 </div>
                             </div>
 
+                            <!-- Removed Barber Step -->
+
+
                             <!-- Step 1: Layanan -->
                             <div class="step-content active animate-fade-in" id="step1">
-                                <div class="mb-4">
-                                    <label class="form-label">Layanan</label>
-                                    <div class="input-icon-wrapper">
-                                        <div class="input-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M3.5 3.5c-.614-.884-.074-1.962.858-2.5L8 7.226 11.642 1c.932.538 1.472 1.616.858 2.5L8.81 8.61l1.556 2.661a2.5 2.5 0 1 1-.798.635L8 9.36l-1.568 2.546a2.5 2.5 0 1 1-.798-.635L7.19 8.61 3.5 3.5zm2.5 4.082l.853-1.416L5.688 4.29 4.39 6.236 6 7.582zm4 0l1.61-1.346-1.298-1.945-.853 1.416L10 7.582zM4.5 14a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm7 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
-                                        </div>
-                                        <?php
-                                            $selectedServiceName = '-- Pilih Layanan --';
-                                            $selectedServicePrice = '';
-                                            if ($old_service_id) {
-                                                foreach($services as $s) {
-                                                    if ($s['id'] == $old_service_id) {
-                                                        $selectedServiceName = htmlspecialchars($s['name']);
-                                                        $selectedServicePrice = 'Rp ' . number_format($s['price'] ?? 0, 0, ',', '.');
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        ?>
-                                        <input type="hidden" name="service_id" id="serviceInput" value="<?= htmlspecialchars((string)$old_service_id, ENT_QUOTES, 'UTF-8') ?>" required>
-                                        <button class="form-control text-start shadow-none w-100 d-flex align-items-center py-2" type="button" id="serviceDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="padding-right: 1.2rem; cursor: pointer;">
-                                            <div id="serviceDropdownText" class="d-flex align-items-center justify-content-between flex-grow-1 me-2 text-start">
-                                                <?php if ($old_service_id && $selectedServicePrice): ?>
-                                                    <span class="text-white fw-semibold text-wrap pe-2" style="line-height: 1.3;"><?= $selectedServiceName ?></span>
-                                                    <span class="text-gold fw-bold flex-shrink-0 align-self-start"><?= $selectedServicePrice ?></span>
-                                                <?php else: ?>
-                                                    <span class="text-white opacity-75">-- Pilih Layanan --</span>
-                                                <?php endif; ?>
+                                <h5 class="mb-4 text-white fw-bold">Pilih Layanan</h5>
+                                <input type="hidden" name="service_id" id="serviceInput" value="<?= htmlspecialchars((string)$old_service_id, ENT_QUOTES, 'UTF-8') ?>" required>
+                                
+                                <div class="row g-3 mb-4 custom-scrollbar" style="max-height: 350px; overflow-y: auto; overflow-x: hidden;">
+                                    <?php foreach($services as $s): ?>
+                                    <div class="col-12">
+                                        <div class="service-card-select p-3 rounded-4 border selection-card d-flex align-items-center <?= ($old_service_id == $s['id']) ? 'selected' : '' ?>" data-value="<?= $s['id'] ?>" data-name="<?= htmlspecialchars($s['name'], ENT_QUOTES, 'UTF-8') ?>" data-price="Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?>" style="cursor: pointer; border-color: rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); transition: all 0.3s;">
+                                            <div class="bg-dark rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 50px; height: 50px; border: 1px solid rgba(212,175,55,0.3);">
+                                                <i class="bi bi-scissors text-gold fs-5"></i>
                                             </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary-accent)" class="bi bi-chevron-down flex-shrink-0" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                            </svg>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-dark w-100 shadow-lg border-0 rounded-4 mt-2 p-0" aria-labelledby="serviceDropdownBtn" style="background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); border: 1px solid rgba(212, 175, 55, 0.15) !important; border-radius: 1rem !important; overflow: hidden;">
-                                            <ul class="list-unstyled m-0 py-2 custom-scrollbar" style="max-height: 250px; overflow-y: auto;">
-                                                <?php foreach($services as $s): ?>
-                                                    <li>
-                                                        <a class="dropdown-item py-3 px-4 service-select-item border-bottom border-secondary border-opacity-25 text-wrap" style="white-space: normal;" href="#" data-value="<?= $s['id'] ?>" data-name="<?= htmlspecialchars($s['name'], ENT_QUOTES, 'UTF-8') ?>" data-price="Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?>">
-                                                            <div class="d-flex justify-content-between align-items-start">
-                                                                <span class="fw-semibold text-white fs-6 text-wrap pe-3" style="line-height: 1.3;"><?= htmlspecialchars($s['name']) ?></span>
-                                                                <span class="text-gold fw-bold flex-shrink-0 align-self-start mt-1">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1 text-white fw-bold"><?= htmlspecialchars($s['name']) ?></h6>
+                                                <div class="text-gold fw-bold small">Rp <?= number_format($s['price'] ?? 0, 0, ',', '.') ?></div>
+                                            </div>
+                                            <div class="selection-check ms-3" style="opacity: 0;">
+                                                <i class="bi bi-check-circle-fill text-gold fs-4"></i>
+                                            </div>
                                         </div>
-
                                     </div>
-                                    <div class="text-danger mt-2 small d-none fw-semibold" id="serviceError"><i class="bi bi-exclamation-circle me-1"></i>Silakan pilih layanan terlebih dahulu.</div>
+                                    <?php endforeach; ?>
                                 </div>
-                                <div class="d-flex justify-content-end mt-4">
+                                <div class="text-danger mt-2 small d-none fw-semibold" id="serviceError"><i class="bi bi-exclamation-circle me-1"></i>Silakan pilih layanan terlebih dahulu.</div>
+                                <div class="d-flex justify-content-between mt-4 pt-2 border-top border-secondary border-opacity-25">
+                                    <button type="button" class="btn btn-dark px-4 py-2 fw-bold rounded-pill border border-secondary text-white btn-prev d-flex align-items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg> 
+                                        Kembali
+                                    </button>
                                     <button type="button" class="btn btn-gold px-4 py-2 fw-bold rounded-pill shadow btn-next">
                                         Selanjutnya
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/></svg>
@@ -502,6 +525,16 @@ layoutRenderHead([
                                     <div class="invalid-feedback">Silakan masukkan nomor WhatsApp Anda.</div>
                                 </div>
                                 
+                                <div class="mb-4">
+                                    <label for="notesInput" class="form-label">Catatan untuk Barber (Opsional)</label>
+                                    <div class="input-icon-wrapper">
+                                        <div class="input-icon">
+                                            <i class="bi bi-chat-text text-white"></i>
+                                        </div>
+                                        <input type="text" name="notes" class="form-control" id="notesInput" placeholder="Misal: Suka gaya fade, jangan terlalu pendek" value="<?= htmlspecialchars((string)$old_notes, ENT_QUOTES, 'UTF-8') ?>">
+                                    </div>
+                                </div>
+                                
                                 <div class="d-flex align-items-center mb-4 mt-2 p-3 rounded-3" style="background-color: rgba(255,255,255,0.02); border: 1px solid rgba(212,175,55,0.1);">
                                     <div class="bg-gold-subtle rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 me-3" style="width: 36px; height: 36px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
@@ -548,37 +581,39 @@ layoutRenderHead([
     <?php endif; ?>
 
     <script>
-        document.querySelectorAll('.service-select-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const val = this.getAttribute('data-value');
-                const name = this.getAttribute('data-name');
-                const price = this.getAttribute('data-price');
-                
-                document.getElementById('serviceInput').value = val;
-                
-                const btnText = document.getElementById('serviceDropdownText');
-                btnText.innerHTML = `
-                    <span class="text-white fw-semibold text-wrap pe-2" style="line-height: 1.3;">${name}</span>
-                    <span class="text-gold fw-bold flex-shrink-0 align-self-start">${price}</span>
-                `;
-                btnText.classList.remove('text-muted');
+        // Logic pilih layanan
+        function selectService(id, name, price) {
+            const card = document.querySelector(`.service-card-select[data-value="${id}"]`);
+            if (card) {
+                card.click();
+            } else {
+                // Fallback kalo card gak ketemu
+                document.getElementById('serviceInput').value = id;
+                document.getElementById('summaryService').textContent = name;
+                document.getElementById('summaryService').classList.remove('opacity-75');
+                document.getElementById('summaryPrice').textContent = price;
+                document.getElementById('realtimeSummary').style.opacity = '1';
+            }
+        }
+
+        document.querySelectorAll('#step1 .selection-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('#step1 .selection-card').forEach(c => {
+                    c.classList.remove('selected', 'border-gold');
+                    c.querySelector('.selection-check').style.opacity = '0';
+                });
+                this.classList.add('selected', 'border-gold');
+                this.querySelector('.selection-check').style.opacity = '1';
+                document.getElementById('serviceInput').value = this.getAttribute('data-value');
+                document.getElementById('summaryService').textContent = this.getAttribute('data-name');
+                document.getElementById('summaryService').classList.remove('opacity-75');
+                document.getElementById('summaryPrice').textContent = this.getAttribute('data-price');
                 document.getElementById('serviceError').classList.add('d-none');
+                document.getElementById('realtimeSummary').style.opacity = '1';
             });
         });
 
-        function selectService(id, name, price) {
-            document.getElementById('serviceInput').value = id;
-            const btnText = document.getElementById('serviceDropdownText');
-            btnText.innerHTML = `
-                <span class="text-white fw-semibold text-wrap pe-2" style="line-height: 1.3;">${name}</span>
-                <span class="text-gold fw-bold flex-shrink-0 align-self-start">${price}</span>
-            `;
-            btnText.classList.remove('text-muted');
-            document.getElementById('serviceError').classList.add('d-none');
-        }
-
-        // Stepper Logic
+        // Logic stepper multi-step
         document.addEventListener("DOMContentLoaded", function() {
             let currentStep = <?= ($error_message !== null && $error_message !== '') ? 3 : 1 ?>;
             const totalSteps = 3;
@@ -614,24 +649,24 @@ layoutRenderHead([
                 const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
                 progress.style.width = progressPercentage + '%';
                 
-                // Update step indicators
+                // Update indikator langkah
                 indicators.forEach((indicator, index) => {
                     const stepNum = index + 1;
                     const icon = indicator.querySelector('.step-icon');
                     const label = indicator.querySelector('.step-label');
                     
                     if (stepNum < currentStep) {
-                        // Completed steps
+                        // Langkah selesai
                         icon.className = 'step-icon rounded-circle bg-gold text-dark d-flex align-items-center justify-content-center fw-bold shadow';
                         icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg>';
                         label.className = 'step-label small mt-2 text-white fw-semibold';
                     } else if (stepNum === currentStep) {
-                        // Current step
+                        // Langkah sekarang
                         icon.className = 'step-icon rounded-circle bg-gold text-dark d-flex align-items-center justify-content-center fw-bold shadow';
                         icon.innerHTML = stepNum;
                         label.className = 'step-label small mt-2 text-white fw-semibold';
                     } else {
-                        // Future steps
+                        // Langkah selanjutnya
                         icon.className = 'step-icon rounded-circle bg-dark text-secondary border border-secondary d-flex align-items-center justify-content-center fw-bold';
                         icon.innerHTML = stepNum;
                         label.className = 'step-label small mt-2 text-secondary';
@@ -794,16 +829,27 @@ layoutRenderHead([
                             input.addEventListener('change', function() {
                                 document.getElementById('timeError').classList.add('d-none');
                                 document.getElementById('timeError').classList.remove('d-block');
+                                updateTimeSummary();
                             });
                         });
                     });
             });
             
+            function updateTimeSummary() {
+                const date = document.getElementById('dateInput').value;
+                const timeRadio = document.querySelector('input[name="time"]:checked');
+                if (date) {
+                    document.getElementById('summaryDate').classList.remove('opacity-75');
+                    document.getElementById('summaryDate').textContent = date + (timeRadio ? ' | ' + timeRadio.value + ' WIB' : '');
+                }
+            }
+
             // Listeners for initial radio buttons
             document.querySelectorAll('input[name="time"]').forEach(input => {
                 input.addEventListener('change', function() {
                     document.getElementById('timeError').classList.add('d-none');
                     document.getElementById('timeError').classList.remove('d-block');
+                    updateTimeSummary();
                 });
             });
 
@@ -816,6 +862,18 @@ layoutRenderHead([
             
             // Initialize stepper state
             updateStepper();
+            
+            // Rehydrate summary if returning with error
+            if (currentStep > 1) {
+                document.getElementById('realtimeSummary').style.opacity = '1';
+                const sService = document.querySelector('.service-card-select.selected');
+                if(sService) {
+                    document.getElementById('summaryService').textContent = sService.getAttribute('data-name');
+                    document.getElementById('summaryService').classList.remove('opacity-75');
+                    document.getElementById('summaryPrice').textContent = sService.getAttribute('data-price');
+                }
+                updateTimeSummary();
+            }
         });
     </script>
 </body>

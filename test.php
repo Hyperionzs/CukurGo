@@ -1,5 +1,5 @@
 <?php
-// Simulate GET request to get session and CSRF token
+// Simulasi GET buat dapetin session dan CSRF token
 $ch = curl_init('http://localhost:8000/Index.php');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookies.txt');
@@ -11,7 +11,7 @@ if (preg_match('/name="csrf_token" value="(.*?)"/', $response, $matches)) {
     $csrf = $matches[1];
     echo "Found CSRF: $csrf\n";
     
-    // Simulate POST
+    // Simulasi POST
     $postData = [
         'csrf_token' => $csrf,
         'name' => 'John Doe',
@@ -28,8 +28,7 @@ if (preg_match('/name="csrf_token" value="(.*?)"/', $response, $matches)) {
     curl_setopt($ch2, CURLOPT_COOKIEFILE, 'cookies.txt');
     $postResponse = curl_exec($ch2);
     
-    // Check if there is an error message
-    if (strpos($postResponse, 'Booking gagal') !== false) {
+        if (strpos($postResponse, 'Booking gagal') !== false) {
         echo "Error found in POST response!\n";
         preg_match('/<div class="alert alert-danger[^>]*>(.*?)<\/div>/s', $postResponse, $errMatch);
         echo strip_tags($errMatch[1] ?? 'No error text');

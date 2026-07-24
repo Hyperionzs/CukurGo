@@ -28,9 +28,9 @@ class BookingController
         $maxCapacity = 5; // Kapasitas 5 kursi per slot
         $sessions = $this->getSessions();
         
-        $query = "SELECT reservation_time, COUNT(*) as booked_count 
+        $query = "SELECT DATE_FORMAT(reservation_time, '%H:%i') as time, COUNT(*) as booked_count 
                   FROM reservations 
-                  WHERE reservation_date = :date AND status != 'cancelled' 
+                  WHERE reservation_date = :date AND status != 'Cancelled' 
                   GROUP BY reservation_time";
         $stmt = $this->db->prepare($query);
         $stmt->execute([':date' => $date]);
@@ -75,6 +75,7 @@ class BookingController
 
     /**
      * @return array{ok: bool, message?: string}
+     * Hasil booking: ok=true berhasil, ok=false gagal pesan ada di message
      */
     public function createBooking(array $data): array
     {
@@ -85,6 +86,7 @@ class BookingController
         $name = isset($data['name']) ? trim((string) $data['name']) : '';
         $phoneRaw = isset($data['phone']) ? (string) $data['phone'] : '';
         $serviceId = isset($data['service_id']) ? $data['service_id'] : '';
+        $notes = isset($data['notes']) ? trim((string) $data['notes']) : '';
         $date = isset($data['date']) ? trim((string) $data['date']) : '';
         $time = isset($data['time']) ? trim((string) $data['time']) : '';
 
@@ -142,11 +144,12 @@ class BookingController
             return ['ok' => false, 'message' => 'Maaf, slot waktu sudah penuh. Silakan pilih jam atau tanggal lain.'];
         }
 
-        $query = 'INSERT INTO reservations (customer_name, phone_number, service_id, reservation_date, reservation_time) 
-                  VALUES (:name, :phone, :service, :date, :time)';
+        $query = 'INSERT INTO reservations (customer_name, phone_number, service_id, reservation_date, reservation_time, notes) 
+                  VALUES (:name, :phone, :service, :date, :time, :notes)';
 
         $stmt = $this->db->prepare($query);
         $nameSafe = htmlspecialchars(strip_tags($name), ENT_QUOTES, 'UTF-8');
+        $notesSafe = htmlspecialchars(strip_tags($notes), ENT_QUOTES, 'UTF-8');
 
         try {
             $stmt->execute([
@@ -155,11 +158,20 @@ class BookingController
                 ':service' => $serviceIdInt,
                 ':date' => $date,
                 ':time' => $time,
+                ':notes' => $notesSafe,
             ]);
             return ['ok' => true];
+
         } catch (PDOException $e) {
-            return ['ok' => false, 'message' => 'Terjadi kesalahan sistem. Silakan coba lagi.'];
+            
+            error_log("Booking DB Error: " . $e->getMessage());
+            
+            return [
+                'ok' => false, 
+                'message' => 'Terjadi kendala pada sistem kami saat menyimpan pesanan. Silakan coba beberapa saat lagi atau hubungi kami melalui WhatsApp.'
+            ];
         }
+
     }
 
     private function serviceExists(int $id): bool
@@ -169,8 +181,15 @@ class BookingController
         return $stmt->fetchColumn() !== false;
     }
 
+    private function barberExists(int $id): bool
+    {
+        $stmt = $this->db->prepare('SELECT 1 FROM barbers WHERE id = :id LIMIT 1');
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetchColumn() !== false;
+    }
+
     /**
-     * Digits-only WA number, normalized to 62…
+     * Nomor WA angka doang, dinormalisasi ke 62…
      */
     private function normalizeIndonesiaPhone(string $phone): ?string
     {
