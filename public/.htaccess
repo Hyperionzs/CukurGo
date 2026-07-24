@@ -1,0 +1,4 @@
+DirectoryIndex Index.php
+
+ErrorDocument 404 /CukurGo/public/404.php
+ErrorDocument 500 /CukurGo/public/500.php
